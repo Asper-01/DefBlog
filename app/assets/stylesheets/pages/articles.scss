@@ -1,0 +1,33 @@
+.card-trip {
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);  /* Ombre légère */
+}
+
+.card-trip-img {
+  height: 300px;  /* Limiter la hauteur de l'image */
+  object-fit: cover; /* Conserver le ratio d'image */
+}
+
+.card-trip-infos {
+  padding: 16px;
+}
+
+.card-trip h2 {
+  font-size: 24px;
+}
+
+.card-trip p {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.card-trip-user {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+

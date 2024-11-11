@@ -1,0 +1,39 @@
+<h1>Créer un article</h1>
+
+<%= form_with(model: @article, local: true) do |form| %>
+  <% if @article.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@article.errors.count, "erreur") %> ont empêché cet article d'être sauvegardé :</h2>
+      <ul>
+        <% @article.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :content %>
+    <%= form.text_area :content, class: "form-control" %>
+  </div>
+
+  <!-- Champ pour l'image -->
+  <div class="form-group">
+    <%= form.label :image, "Ajouter une image" %>
+    <%= form.file_field :image, class: "form-control" %>
+
+    <!-- Afficher l'image si elle est attachée -->
+    <% if @article.image.attached? %>
+      <%= image_tag @article.image, class: "img-fluid" %>
+    <% else %>
+      <p>Aucune image disponible</p>
+    <% end %>
+  </div>
+
+  <%= form.submit "Créer l'article", class: "btn btn-primary" %>
+<% end %>
