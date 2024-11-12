@@ -2,6 +2,23 @@ class TagsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_tag, only: [:edit, :update, :destroy]
   before_action :check_admin, only: [:edit, :update, :destroy]
+  def new
+    @tag = Tag.new
+    @tag2 = Tag.all
+  end
+  
+  def show
+    @tag = Tag.find(params[:id])
+  end
+
+  def create
+    @tag = Tag.new(tag_params)
+    if @tag.save
+      redirect_to tags_path, notice: "Tag créé avec succès."
+    else
+      render :new
+    end
+  end
 
   def edit
   end
