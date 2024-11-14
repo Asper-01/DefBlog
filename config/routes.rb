@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root 'articles#index'
   resources :articles
-  resources :tags 
+  resources :tags, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   resources :comments
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

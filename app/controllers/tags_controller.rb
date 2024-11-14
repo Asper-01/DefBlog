@@ -1,51 +1,49 @@
 class TagsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_tag, only: [:edit, :update, :destroy]
-  before_action :check_admin, only: [:edit, :update, :destroy]
+  before_action :set_tag, only: [:show, :edit, :update, :destroy]
+
+  def index
+    @tags = Tag.all
+  end
+
   def new
     @tag = Tag.new
-    @tag2 = Tag.all
-  end
-  
-  def show
-    @tag = Tag.find(params[:id])
+    @tags = Tag.order(:id) # Tri par ID
   end
 
-  def create
-    @tag = Tag.new(tag_params)
-    if @tag.save
-      redirect_to tags_path, notice: "Tag créé avec succès."
-    else
-      render :new
-    end
-  end
-
+  # Action d'édition
   def edit
-  end
-
-  def update
-    if @tag.update(tag_params)
-      redirect_to @tag, notice: "Tag mis à jour."
-    else
-      render :edit
+    respond_to do |format|
+      format.html
+      format.turbo_stream
     end
   end
 
+  # Action de mise à jour
+  def update
+    @tag = Tag.find(params[:id])
+    if @tag.update(tag_params)
+      redirect_to new_tag_path, notice: 'Le tag a été mis à jour avec succès.'
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  # Action suppresion
   def destroy
     @tag.destroy
-    redirect_to tags_path, notice: "Tag supprimé."
+    respond_to do |format|
+      format.html { redirect_to tags_path, notice: "Tag supprimé avec succès." }
+      format.turbo_stream
+    end
   end
+
 
   private
 
-  def check_admin
-    unless current_user.admin?
-      redirect_to root_path, alert: "Vous n'êtes pas autorisé à accéder à cette action."
-    end
-  end
-
   def set_tag
-    @tag = Tag.find(params[:id])
+    @tag = Tag.find(params[:id])  # Vérifie que params[:id] correspond bien à un ID valide
+  rescue ActiveRecord::RecordNotFound
+    redirect_to tags_path, alert: "Tag non trouvé"
   end
 
   def tag_params

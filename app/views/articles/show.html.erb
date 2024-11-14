@@ -1,14 +1,14 @@
 <div class="container mt-4">
   <div class="row justify-content-center">
-    <div class="col-md-8"> <!-- Largeur plus grande -->
+    <div class="col-md-12 col-12"> <!-- Utilisation de col-md-8 pour 66% et col-12 pour 100% sur mobile -->
 
       <!-- Carte de l'article avec bord arrondi et ombre légère -->
-      <div class="card shadow-sm rounded">
+      <div class="card article-card shadow-sm rounded">
 
         <!-- Affichage de l'image de l'article -->
         <div class="card-img-top">
           <% if @article.image.attached? %>
-            <%= image_tag @article.image, class: "card-img" %> <!-- Image s'adapte à la largeur de la carte -->
+            <%= image_tag @article.image, class: "article-card-img" %> <!-- L'image s'adapte à la hauteur -->
           <% else %>
             <p>Aucune image disponible</p>
           <% end %>
@@ -17,17 +17,34 @@
         <!-- Informations de l'article -->
         <div class="card-body">
           <h1 class="card-title mb-3"><%= @article.title %></h1> <!-- Titre en plus grand -->
-          <p class="card-text text-muted mb-4"><%= truncate(@article.content, length: 250) %></p> <!-- Extrait de contenu avec coupure à 250 caractères -->
+          <p class="card-text text-muted mb-4"><%= @article.content %></p> <!-- Affichage complet du contenu -->
         </div>
 
       </div>
 
-      <!-- Boutons en dehors de la carte, sur une nouvelle ligne -->
-      <div class="mt-4">
-        <%= link_to 'Modifier cet article', edit_article_path(@article), class: 'btn btn-primary rounded-pill mr-2' %>
-        <%= link_to 'Supprimer cet article', article_path(@article), method: :delete, data: { confirm: "Êtes-vous sûr ?" }, class: 'btn btn-danger rounded-pill' %>
-      </div>
 
     </div>
+
+ <!-- Carte d'administration visible uniquement pour les administrateurs -->
+    <% if current_user&.admin? %> <!-- Condition pour afficher la carte uniquement si l'utilisateur est admin -->
+      <div class="col-md-8 col-8 mt-5">
+        <div class="card.admin-article-card shadow-sm rounded"> <!-- Fond gris foncé -->
+
+          <!-- Affichage du titre de l'article dans la carte d'administration -->
+          <div class="card-body"> <!-- Texte en blanc pour contraster avec le fond -->
+            <h2 class="card-title mb-3">Administration de l'article : <%= @article.title %></h2>
+            <p class="card-text">Ici vous pouvez modifier ou supprimer cet article. Utilisez les boutons ci-dessous.</p>
+
+            <!-- Boutons de modification et suppression -->
+            <div class="text-center mt-4"> <!-- Centrage des boutons -->
+              <%= link_to 'Modifier', edit_article_path(@article), class: 'btn btn-gradient rounded-pill' %> <!-- Bouton bleu pour modifier -->
+              <%= link_to 'Supprimer', article_path(@article), method: :delete, data: { confirm: "Êtes-vous sûr ?" }, class: 'btn btn-gradient2 rounded-pill ml-2' %> <!-- Bouton rouge pour supprimer -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+    <% end %> <!-- Fin de la condition admin -->
+
   </div>
 </div>
