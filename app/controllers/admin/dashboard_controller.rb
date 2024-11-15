@@ -1,10 +1,11 @@
-class AdminController < ApplicationController
-  class AdminController < ApplicationController
+# app/controllers/admin/dashboard_controller.rb
+module Admin
+  class DashboardController < ApplicationController
     before_action :authenticate_user!
     before_action :check_admin
 
-    def dashboard
-      # C'est ici que l'administrateur peut choisir entre créer un article ou un tag
+    def index
+      # Code pour afficher le dashboard
     end
 
     private
@@ -15,5 +16,4 @@ class AdminController < ApplicationController
       end
     end
   end
-
 end
