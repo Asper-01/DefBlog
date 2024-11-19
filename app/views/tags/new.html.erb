@@ -1,0 +1,37 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-12 mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h1 class="card-title">Gestion des Tags INDEX</h1>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @tags.each do |tag| %>
+                <tr>
+                  <td><%= tag.id %></td>
+                  <td><%= tag.name %></td>
+                  <td>
+                    <!-- Bouton Modifier -->
+                    <%= link_to 'Modifier', edit_tag_path(tag), class: 'btn btn-warning' %>
+
+                    <!-- Frame pour le formulaire partiel -->
+                    <%= turbo_frame_tag "tag_#{tag.id}" do %>
+                      <%= render 'form', tag: tag %> <!-- Rend le partial du formulaire -->
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
