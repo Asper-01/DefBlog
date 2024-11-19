@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   # Administration
   namespace :admin do
     get 'dashboard', to: 'dashboard#index'
-    resources :articles  # <-- Fermeture de la ressource `articles`
+    resources :articles
+
   end
 end
