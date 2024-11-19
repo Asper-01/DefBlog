@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   # Pages publiques
   root 'articles#index'
-  resources :articles, only: [:index, :edit, :update, :destroy]
+  resources :articles, only: [:index, :edit, :update, :destroy, :show]
   resources :tags, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   resources :comments
 
