@@ -1,23 +1,33 @@
-<h1>Bienvenue dans l'espace admin</h1>
+
 
 <div class="container mt-4">
+  <h1 class="text-center mb-4">Bienvenue dans l'espace admin</h1>
+
   <div class="row">
-    <!-- Carte pour les articles -->
-    <div class="col-md-8 mb-4">
+    <!-- Carte pour gérer les articles -->
+    <div class="col-md-6 mb-4">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Gérer les Articles</h5>
           <p class="card-text">Créez, modifiez ou supprimez des articles.</p>
+
+          <!-- Liens d'action pour gérer les articles -->
           <div class="d-flex justify-content-between">
             <%= link_to "Créer un article", new_admin_article_path, class: "btn btn-primary" %>
             <%= link_to "Gérer les articles", admin_articles_path, class: "btn btn-secondary" %>
           </div>
+        </div>
+      </div>
+    </div>
 
-          <!-- Séparation visuelle -->
-          <hr class="my-4">
-
+    <!-- Carte pour gérer les tags -->
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-body">
           <h5 class="card-title">Gérer les Tags</h5>
           <p class="card-text">Créez, modifiez ou supprimez des tags associés aux articles.</p>
+
+          <!-- Lien d'action pour gérer les tags -->
           <div class="d-flex justify-content-center">
             <%= link_to "Gérer les tags", new_tag_path, class: "btn btn-primary" %>
           </div>
