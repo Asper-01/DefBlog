@@ -1,0 +1,14 @@
+
+  .card-body {
+    border-radius: 8px;
+    background: #fcfcfc;
+    box-shadow: inset -4px 4px 8px #ffffff,
+          inset 4px -4px 8px #ffffff;
+
+}
+/* Cartes en Neumorphism avec bordures légères */
+.neumorphic-card {
+  border-radius: 18px;
+  box-shadow: inset -4px 4px 8px #ffffff,
+          inset 4px -4px 8px #ffffff;
+}

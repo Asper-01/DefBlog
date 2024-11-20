@@ -1,20 +1,16 @@
-
-
 <div class="container mt-4">
-  <h1 class="text-center mb-4">Bienvenue dans l'espace admin</h1>
+  <h1 class="text-center mb-4" style="font-family: 'Poppins', sans-serif; color: #2c3e50;">Bienvenue dans l'espace admin</h1>
 
   <div class="row">
     <!-- Carte pour gérer les articles -->
     <div class="col-md-6 mb-4">
-      <div class="card">
+      <div class="card neumorphic-card">
         <div class="card-body">
-          <h5 class="card-title">Gérer les Articles</h5>
-          <p class="card-text">Créez, modifiez ou supprimez des articles.</p>
-
-          <!-- Liens d'action pour gérer les articles -->
+          <h5 class="card-title" style="font-size: 1.4rem; color: #2c3e50;">Gérer les Articles</h5>
+          <p class="card-text" style="color: #7f8c8d;">Créez, modifiez ou supprimez des articles.</p>
           <div class="d-flex justify-content-between">
-            <%= link_to "Créer un article", new_admin_article_path, class: "btn btn-primary" %>
-            <%= link_to "Gérer les articles", admin_articles_path, class: "btn btn-secondary" %>
+            <%= link_to "Créer", new_admin_article_path, class: "btn neumorphic-btn" %>
+            <%= link_to "Gérer", admin_articles_path, class: "btn neumorphic-btn" %>
           </div>
         </div>
       </div>
@@ -22,14 +18,12 @@
 
     <!-- Carte pour gérer les tags -->
     <div class="col-md-6 mb-4">
-      <div class="card">
+      <div class="card neumorphic-card">
         <div class="card-body">
-          <h5 class="card-title">Gérer les Tags</h5>
-          <p class="card-text">Créez, modifiez ou supprimez des tags associés aux articles.</p>
-
-          <!-- Lien d'action pour gérer les tags -->
+          <h5 class="card-title" style="font-size: 1.4rem; color: #2c3e50;">Gérer les Tags</h5>
+          <p class="card-text" style="color: #7f8c8d;">Créez, modifiez ou supprimez des tags associés aux articles.</p>
           <div class="d-flex justify-content-center">
-            <%= link_to "Gérer les tags", new_tag_path, class: "btn btn-primary" %>
+            <%= link_to "Gestion", new_tag_path, class: "btn neumorphic-btn" %>
           </div>
         </div>
       </div>
