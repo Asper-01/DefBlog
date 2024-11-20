@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :authenticate_user!, except: [:index]  # Permet l'accès à index sans être connecté
+  before_action :authenticate_user!, except: [:index, :show ]  # Permet l'accès à index sans être connecté
   before_action :require_admin, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_article, only: %i[show edit update destroy]
 
