@@ -1,25 +1,21 @@
 module Admin
   class ArticlesController < ApplicationController
-    before_action :authenticate_user! # Si Devise est utilisé pour l'authentification
+    before_action :authenticate_user!
     before_action :set_article, only: [:edit, :update, :destroy]
 
-    # Affiche tous les articles
     def index
-      @articles = Article.includes(:tags).page(params[:page]).per(5) # Précharge les tags et pagine
+      @articles = Article.includes(:tags).page(params[:page]).per(5) #
     end
 
-    # Affiche un article (nécessaire si "show" est utilisé dans vos routes)
     def show
       @article = Article.includes(:tags).find(params[:id])
     end
 
-    # Initialise un nouvel article
     def new
       @article = Article.new
-      @articles = Article.all # Charge tous les articles existants
+      @articles = Article.all
     end
 
-    # Crée un nouvel article avec les paramètres transmis
     def create
       @article = Article.new(article_params)
       if @article.save
@@ -29,7 +25,6 @@ module Admin
       end
     end
 
-    # Récupère l'article à modifier
     def edit
       # L'article est déjà chargé par le before_action `set_article`
     end

@@ -1,12 +1,10 @@
+module Admin
 class TagsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
 
   def index
     @tags = Tag.all
-  end
-
-  def show
+    @tag = Tag.new # Initialise un tag vierge
   end
 
   def new
@@ -17,20 +15,24 @@ class TagsController < ApplicationController
   def create
     @tag = Tag.new(tag_params)
     if @tag.save
-      redirect_to admin_tags_path, notice: 'Tag crée avec succès.'
+      redirect_to admin_tags_path, notice: "Tag créé avec succès."
     else
-      render :new
+      @tags = Tag.all # Nécessaire pour réafficher les tags sur la page
+      render :index, status: :unprocessable_entity
     end
   end
 
+  # Action d'édition
   def edit
+    @tag = Tag.find(params[:id])
   end
+
 
   # Action de mise à jour
   def update
     @tag = Tag.find(params[:id])
     if @tag.update(tag_params)
-      redirect_to admin_tag_path, notice: 'Le tag a été mis à jour avec succès.'
+      redirect_to admin_tags_path, notice: 'Le tag a été mis à jour avec succès.'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -57,4 +59,5 @@ class TagsController < ApplicationController
   def tag_params
     params.require(:tag).permit(:name)
   end
+end
 end

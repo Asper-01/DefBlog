@@ -9,7 +9,7 @@
           <h5 class="card-title" style="font-size: 1.4rem; color: #2c3e50;">Gérer les Articles</h5>
           <p class="card-text" style="color: #7f8c8d;">Créez, modifiez ou supprimez des articles.</p>
           <div class="d-flex justify-content-between">
-            <%= link_to "Créer", new_admin_article_path, class: "btn neumorphic-btn" %>
+            <%= link_to "Nouveau", new_admin_article_path, class: "btn neumorphic-btn" %>
             <%= link_to "Gérer", admin_articles_path, class: "btn neumorphic-btn" %>
           </div>
         </div>
@@ -22,8 +22,9 @@
         <div class="card-body">
           <h5 class="card-title" style="font-size: 1.4rem; color: #2c3e50;">Gérer les Tags</h5>
           <p class="card-text" style="color: #7f8c8d;">Créez, modifiez ou supprimez des tags associés aux articles.</p>
-          <div class="d-flex justify-content-center">
-            <%= link_to "Gestion", new_tag_path, class: "btn neumorphic-btn" %>
+          <div class="d-flex justify-content-between">
+            <%= link_to "Nouveau", new_admin_tag_path, class: "btn neumorphic-btn" %>
+            <%= link_to "Gestion", admin_tags_path, class: "btn neumorphic-btn" %>
           </div>
         </div>
       </div>
