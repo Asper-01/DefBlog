@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   # Pages publiques
   root 'articles#index'
-  resources :articles, only: [:index, :edit, :update, :destroy, :show]
+  resources :articles, only: [:index, :edit, :update, :destroy, :show, :new]
   resources :tags, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   resources :comments
 
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   # Administration
   namespace :admin do
-    resources :articles
+    resources :articles, only: [:index, :new, :edit, :create, :update, :destroy]
     resources :tags, only: [:index, :new, :edit, :create, :update, :destroy]
     get 'dashboard', to: 'dashboard#index'
   end

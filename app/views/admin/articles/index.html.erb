@@ -33,7 +33,10 @@
                   <td><%= l(article.created_at, format: :short) %></td>
                   <td>
                     <%= link_to "Modifier", edit_admin_article_path(article), class: "btn btn-warning btn-sm" %>
-                    <%= link_to "Supprimer", admin_article_path(article), method: :delete, data: { confirm: "Êtes-vous sûr ?" }, class: "btn btn-danger btn-sm" %>
+                    <!-- Formulaire pour supprimer un article -->
+                    <%= form_with(model: article, url: admin_article_path(article), method: :delete, local: true) do |form| %>
+                      <%= form.submit "Supprimer", class: "btn btn-danger btn-sm", data: { confirm: "Êtes-vous sûr ?" } %>
+                    <% end %>
                   </td>
                 </tr>
               <% end %>

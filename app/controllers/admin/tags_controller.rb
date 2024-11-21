@@ -1,5 +1,7 @@
 module Admin
 class TagsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :check_admin
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -40,16 +42,15 @@ class TagsController < ApplicationController
 
   # Action suppresion
   def destroy
-    @tag.destroy
-    respond_to do |format|
-      format.html { redirect_to tags_path, notice: "Tag supprimé avec succès." }
-      format.turbo_stream
+    if @tag.destroy
+      redirect_to admin_tags_path, notice: "Tag supprimé avec succès"
+    else
+      redirect_to admin_tags_path, alert: "Erreur lors de la suppression du tag"
     end
   end
 
 
   private
-
   def set_tag
     @tag = Tag.find(params[:id])  # Vérifie que params[:id] correspond bien à un ID valide
   rescue ActiveRecord::RecordNotFound

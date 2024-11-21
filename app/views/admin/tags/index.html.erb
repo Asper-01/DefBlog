@@ -37,10 +37,15 @@
                   <td><%= tag.name %></td>
                   <td>
                     <!-- Bouton Modifier -->
-                    <%= link_to 'Modifier', edit_admin_tag_path(tag), class: 'btn btn-warning btn-sm' %>
+                    <%= link_to 'Editer', edit_admin_tag_path(tag), class: 'btn btn-warning btn-sm' %>
 
                     <!-- Bouton Supprimer -->
-                    <%= link_to 'Supprimer', admin_tag_path(tag), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer ce tag ?" }, class: 'btn btn-danger btn-sm' %>
+                    <%= form_with(model: tag, url: admin_tag_path(tag), method: :delete, local: true) do |form| %>
+                      <%= form.submit 'Supprimer', class: 'btn btn-danger btn-sm', data: { confirm: "Êtes-vous sûr de vouloir supprimer ce tag ?" } %>
+                    <% end %>
+
+
+
                   </td>
                 </tr>
               <% end %>

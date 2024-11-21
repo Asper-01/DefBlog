@@ -4,7 +4,7 @@ module Admin
     before_action :set_article, only: [:edit, :update, :destroy]
 
     def index
-      @articles = Article.includes(:tags).page(params[:page]).per(5) #
+      @articles = Article.includes(:tags).page(params[:page]).per(5)
     end
 
     def show
@@ -16,8 +16,10 @@ module Admin
       @articles = Article.all
     end
 
+    # Crée un nouvel article avec les paramètres transmis
     def create
       @article = Article.new(article_params)
+      @article.author = current_user
       if @article.save
         redirect_to admin_articles_path, notice: 'Article créé avec succès.'
       else
@@ -25,6 +27,7 @@ module Admin
       end
     end
 
+    # Récupère l'article à modifier
     def edit
       # L'article est déjà chargé par le before_action `set_article`
     end
