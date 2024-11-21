@@ -15,6 +15,20 @@ class Article < ApplicationRecord
   # Callbacks
   before_save :purge_image_if_requested
 
+  # Méthode pour trouver les articles reliés
+  def related_articles(limit = 3)
+    # Récupérer les IDs des tags associés à l'article actuel
+    tag_ids = self.tags.pluck(:id)
+
+  # Trouver les articles ayant des tags communs, exclure l'article actuel
+  Article.joins(:tags)
+             .where(tags: { id: tag_ids })
+             .where.not(id: self.id) # Exclure l'article actuel
+             .select("articles.*, COUNT(tags.id) AS shared_tags_count") # Compter les tags communs
+             .group("articles.id")
+             .order("shared_tags_count DESC, created_at DESC") # Trier par nombre de tags communs, puis par date
+             .limit(limit) # Limiter à 3 articles
+  end
   private
 
   # Supprime l'image si l'utilisateur demande sa suppression
