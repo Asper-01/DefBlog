@@ -12,3 +12,43 @@
   box-shadow: inset -4px 4px 8px #ffffff,
           inset 4px -4px 8px #ffffff;
 }
+
+
+/* Cartes articles show */
+.card-img-top {
+  padding: 0; /* Supprime les marges internes */
+  margin: 0; /* Supprime les marges externes */
+  width: 100%; /* Prend la largeur totale */
+}
+
+.card {
+  display: flex;
+  flex-direction: column; /* Assure un flux vertical */
+}
+@media (max-width: 576px) {
+  .card-img-top {
+    height: auto; /* Assure une hauteur fluide */
+  }
+  .article-card-img {
+    object-fit: cover; /* Gère la manière dont l'image s'adapte */
+  }
+}
+.article-card-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.card-img-top {
+  padding: 0;
+  margin: 0;
+}
+
+.no-image-placeholder {
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+  background-color: #f8f9fa;
+  color: #6c757d;
+  font-size: 16px;
+}
