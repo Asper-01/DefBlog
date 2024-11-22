@@ -5,10 +5,20 @@ class TagsController < ApplicationController
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
 
   def index
+    # Recherche pour les tags
+    if params[:search].present?
+      @tags = Tag.where("name LIKE ?", "%#{params[:search]}%")
+    else
+      @tags = Tag.all
+    end
 
-    @tags = Tag.includes(:articles).page(params[:page]).per(5) # Paginez avec 5 tags par page
-    @tag = Tag.new # Initialise un tag vierge pour
+    # Ajout de la pagination
+    @tags = @tags.includes(:articles).page(params[:page]).per(5)
+
+    # Chargement des articles (si besoin d'un tableau d'articles paginés)
+    @articles = Article.page(params[:articles_page]).per(5)
   end
+
 
   def show
     @tags = Tag.includes(:articles).page(params[:id])
