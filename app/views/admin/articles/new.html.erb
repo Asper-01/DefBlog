@@ -1,67 +1,65 @@
-<div class="container mt-4">
-  <div class="row">
-    <div class="col-12 mb-4">
-      <!-- Carte pour créer un article -->
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Créer un nouvel article</h5>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+  <div class="col-8">
+    <!-- Carte pour créer un article -->
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title text-center">Créer un nouvel article</h5>
 
-          <div class="card-body">
+        <!-- Bouton retour au dashboard -->
+        <div class="card-body">
           <%= link_to "Retour au dashboard", "/admin/dashboard", class: "btn btn-outline-secondary w-100 mb-3 mt-3 rounded-custom" %>
         </div>
 
-          <!-- Affichage des erreurs de validation -->
-          <% if @article.errors.any? %>
-            <div id="error_explanation" class="alert alert-danger">
-              <h2><%= pluralize(@article.errors.count, "erreur") %> ont empêché cet article d'être sauvegardé :</h2>
-              <ul>
-                <% @article.errors.full_messages.each do |message| %>
-                  <li><%= message %></li>
-                <% end %>
-              </ul>
+        <!-- Affichage des erreurs de validation -->
+        <% if @article.errors.any? %>
+          <div id="error_explanation" class="alert alert-danger">
+            <h2><%= pluralize(@article.errors.count, "erreur") %> ont empêché cet article d'être sauvegardé :</h2>
+            <ul>
+              <% @article.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <!-- Formulaire de création d'article -->
+        <%= form_with(model: @article, url: admin_articles_path, local: true) do |form| %>
+          <!-- Champ titre -->
+          <div class="form-group">
+            <%= form.label :title, "Titre", class: "form-label" %>
+            <%= form.text_field :title, required: true, class: "form-control" %>
+          </div>
+
+          <!-- Champ contenu -->
+          <div class="mb-3">
+            <%= form.label :content, "Contenu", class: "form-label" %>
+            <%= form.text_area :content, required: true, class: "form-control", rows: 9 %>
+          </div>
+
+          <!-- Champ image -->
+          <div class="form-group">
+            <%= form.label :image, "Ajouter une image", class: "form-label" %>
+            <%= form.file_field :image, required: true, class: "form-control" %>
+          </div>
+
+          <!-- Champ tags -->
+          <div class="form-group mt-3">
+            <%= form.label :tag_ids, "Associer des tags", class: "form-label" %>
+            <div class="d-flex flex-wrap gap-3">
+              <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name, { multiple: true }, { class: 'form-check-input' } do |checkbox| %>
+                <div class="form-check">
+                  <%= checkbox.check_box %>
+                  <%= checkbox.label(class: 'form-check-label ms-2') %>
+                </div>
+              <% end %>
             </div>
-          <% end %>
+          </div>
 
-          <!-- Formulaire de création d'article -->
-          <%= form_with(model: @article, url: admin_articles_path, local: true) do |form| %>
-
-            <!-- Champ titre -->
-            <div class="form-group">
-              <%= form.label :title, "Titre", class: "form-label" %>
-              <%= form.text_field :title, required: true, class: "form-control" %>
-            </div>
-
-            <!-- Champ contenu -->
-            <div class="mb-3">
-              <%= form.label :content, "Contenu", class: "form-label" %>
-              <%= form.text_area :content, required: true, class: "form-control", rows: 9 %>
-            </div>
-
-            <!-- Champ image -->
-            <div class="form-group">
-              <%= form.label :image, "Ajouter une image", class: "form-label" %>
-              <%= form.file_field :image, required: true, class: "form-control" %>
-            </div>
-
-            <!-- Champ tags : sélection des tags -->
-            <div class="form-group mt-3">
-              <%= form.label :tag_ids, "Associer des tags", class: "form-label" %>
-              <div class="d-flex flex-wrap gap-3">
-                <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name, { multiple: true }, { class: 'form-check-input' } do |checkbox| %>
-                  <div class="form-check">
-                    <%= checkbox.check_box %>
-                    <%= checkbox.label(class: 'form-check-label ms-2') %>
-                  </div>
-                <% end %>
-              </div>
-            </div>
-
-
-
-            <%= form.submit "Créer l'article", class: "btn btn-primary w-100 mb-3 mt-3 rounded-custom" %>
-
-          <% end %>
-        </div>
+          <!-- Bouton de création -->
+          <div class="card-body">
+          <%= form.submit "Créer l'article", class: "btn btn-primary w-100 mb-3 mt-3 rounded-custom" %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
