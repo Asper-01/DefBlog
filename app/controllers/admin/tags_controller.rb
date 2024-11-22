@@ -5,8 +5,13 @@ class TagsController < ApplicationController
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tags = Tag.all
-    @tag = Tag.new # Initialise un tag vierge
+
+    @tags = Tag.includes(:articles).page(params[:page]).per(5) # Paginez avec 5 tags par page
+    @tag = Tag.new # Initialise un tag vierge pour
+  end
+
+  def show
+    @tags = Tag.includes(:articles).page(params[:id])
   end
 
   def new
@@ -60,5 +65,6 @@ class TagsController < ApplicationController
   def tag_params
     params.require(:tag).permit(:name)
   end
+
 end
 end

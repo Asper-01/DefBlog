@@ -6,6 +6,10 @@
         <div class="card-body">
           <h5 class="card-title">Créer un nouvel article</h5>
 
+          <div class="card-body">
+          <%= link_to "Retour au dashboard", "/admin/dashboard", class: "btn btn-outline-secondary w-100 mb-3 mt-3 rounded-custom" %>
+        </div>
+
           <!-- Affichage des erreurs de validation -->
           <% if @article.errors.any? %>
             <div id="error_explanation" class="alert alert-danger">
@@ -40,12 +44,21 @@
             </div>
 
             <!-- Champ tags : sélection des tags -->
-            <div class="form-group">
+            <div class="form-group mt-3">
               <%= form.label :tag_ids, "Associer des tags", class: "form-label" %>
-              <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name, { multiple: true }, { class: 'form-check-input' } %>
+              <div class="d-flex flex-wrap gap-3">
+                <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name, { multiple: true }, { class: 'form-check-input' } do |checkbox| %>
+                  <div class="form-check">
+                    <%= checkbox.check_box %>
+                    <%= checkbox.label(class: 'form-check-label ms-2') %>
+                  </div>
+                <% end %>
+              </div>
             </div>
 
-            <%= form.submit "Créer l'article", class: "btn btn-primary" %>
+
+
+            <%= form.submit "Créer l'article", class: "btn btn-primary w-100 mb-3 mt-3 rounded-custom" %>
 
           <% end %>
         </div>
