@@ -13,9 +13,14 @@
             <% end %>
             <!-- Contenu de la carte -->
             <div class="card-body">
-              <%= image_tag "logoNom.png", alt: "Logo", class: "banner-logo me-2" %>
+              <div class="card-meta text-muted mt-2">
+                <% tags = @articles.first.tags.limit(2).map(&:name).join(", ") %>
+                <span><%= tags %> • <%= @articles.first.created_at.strftime("%d/%m/%Y") %></span>
+              </div>
               <h5 class="card-title"><%= @articles.first.title %></h5>
               <p class="card-text"><%= truncate(@articles.first.content, length: 150) %></p>
+              <!-- Tags et date -->
+
             </div>
           </div>
         <% end %>
@@ -32,11 +37,16 @@
           <%= link_to article_path(article), class: 'text-decoration-none' do %>
             <div class="card h-100 hover-card">
               <% if article.image.attached? %>
-                <%= image_tag article.image, class: 'card-img-top custom-rounded-top card-img-fixed' %> <!-- Ajout de custom-rounded-top -->
+                <%= image_tag article.image, class: 'card-img-top custom-rounded-top card-img-fixed' %>
               <% else %>
                 <p>Aucune image disponible</p>
               <% end %>
               <div class="card-body">
+                                <!-- Tags et date -->
+                <div class="card-meta text-muted mt-2">
+                  <% tags = article.tags.limit(2).map(&:name).join(", ") %>
+                  <span><%= tags %> • <%= article.created_at.strftime("%d/%m/%Y") %></span>
+                </div>
                 <h5 class="card-title"><%= article.title %></h5>
                 <p class="card-text"><%= truncate(article.content, length: 100) %></p>
               </div>

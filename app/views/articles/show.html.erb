@@ -1,7 +1,5 @@
 <div class="container mt-4">
   <div class="row justify-content-center">
-<div class="container mt-4">
-  <div class="row justify-content-center">
     <div class="col-12 mb-4">
       <% if @article.image.attached? %>
         <%= image_tag @article.image, class: "article-card-img custom-rounded-top" %> <!-- Ajout de custom-rounded-top -->
@@ -10,6 +8,13 @@
       <% end %>
       <!-- Contenu de la carte -->
       <div class="card-body">
+        <!-- Tags et Date de publication au-dessus du titre -->
+        <div class="d-flex justify-content-between mb-3">
+          <div class="card-meta text-muted">
+            <% tags = @article.tags.limit(2).map(&:name).join(", ") %>
+            <span><%= tags %> • <%= @article.created_at.strftime("%d/%m/%Y") %></span>
+          </div>
+        </div>
         <h1 class="card-title mb-3"><%= @article.title %></h1> <!-- Titre en plus grand -->
         <p class="card-text text-muted mb-4"><%= @article.content %></p> <!-- Affichage complet du contenu -->
       </div>
@@ -17,14 +22,14 @@
   </div>
 </div>
 
-  </div>
+<div class="separator mt-4 mb-4">
+  <span class="separator-text">Articles liés</span>
 </div>
 
-<div class="related-articles mt-5">
-  <h2>Articles reliés</h2>
+<div class="container mt-5">
   <div class="row">
     <% @related_articles.each do |related| %>
-      <div class="col-md-4">
+      <div class="col-lg-4 col-md-6 col-12 mb-4"> <!-- Disposition identique à l'accueil -->
         <%= link_to article_path(related), class: "card h-100 hover-card mx-3 text-decoration-none text-dark" do %>
           <% if related.image.attached? %>
             <%= image_tag related.image, class: "card-img-top custom-rounded-top" %> <!-- Coins arrondis en haut -->
@@ -35,6 +40,13 @@
           <% end %>
 
           <div class="card-body custom-rounded-bottom">
+            <!-- Tags et Date de publication au-dessus du titre -->
+            <div class="d-flex justify-content-between mb-3">
+              <div class="card-meta text-muted">
+                <% tags = related.tags.limit(2).map(&:name).join(", ") %>
+                <span><%= tags %> • <%= related.created_at.strftime("%d/%m/%Y") %></span>
+              </div>
+            </div>
             <h5 class="card-title"><%= related.title %></h5>
             <p class="card-text text-muted"><%= truncate(related.content, length: 100) %></p>
           </div>
