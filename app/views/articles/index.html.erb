@@ -7,11 +7,10 @@
           <div class="card h-100 hover-card">
             <!-- Image du premier article -->
             <% if @articles.first.image.attached? %>
-              <%= image_tag @articles.first.image, class: 'card-img-top' %>
+              <%= image_tag @articles.first.image, class: 'card-img-top custom-rounded-top' %>
             <% else %>
               <p>Aucune image disponible</p>
             <% end %>
-
             <!-- Contenu de la carte -->
             <div class="card-body">
               <%= image_tag "logoNom.png", alt: "Logo", class: "banner-logo me-2" %>
@@ -22,12 +21,10 @@
         <% end %>
       </div>
     <% end %>
-
     <!-- Barre de séparation avec "Derniers articles" -->
     <div class="separator mt-4 mb-4">
       <span class="separator-text">Derniers articles</span>
     </div>
-
     <!-- Boucle pour les autres cartes, affichées en 3 colonnes sur grand écran -->
     <div class="row">
       <% @articles.drop(1).each do |article| %>
@@ -35,7 +32,7 @@
           <%= link_to article_path(article), class: 'text-decoration-none' do %>
             <div class="card h-100 hover-card">
               <% if article.image.attached? %>
-                <%= image_tag article.image, class: 'card-img-top card-img-fixed' %> <!-- Ajout de card-img-fixed -->
+                <%= image_tag article.image, class: 'card-img-top custom-rounded-top card-img-fixed' %> <!-- Ajout de custom-rounded-top -->
               <% else %>
                 <p>Aucune image disponible</p>
               <% end %>
@@ -48,6 +45,5 @@
         </div>
       <% end %>
     </div>
-
   </div>
 </div>

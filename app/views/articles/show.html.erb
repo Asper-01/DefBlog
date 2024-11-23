@@ -1,22 +1,22 @@
 <div class="container mt-4">
   <div class="row justify-content-center">
+<div class="container mt-4">
+  <div class="row justify-content-center">
     <div class="col-12 mb-4">
+      <% if @article.image.attached? %>
+        <%= image_tag @article.image, class: "article-card-img custom-rounded-top" %> <!-- Ajout de custom-rounded-top -->
+      <% else %>
+        <p>Aucune image disponible</p>
+      <% end %>
+      <!-- Contenu de la carte -->
       <div class="card-body">
-
-          <% if @article.image.attached? %>
-            <%= image_tag @article.image, class: "article-card-img" %> <!-- L'image s'adapte à la hauteur -->
-          <% else %>
-            <p>Aucune image disponible</p>
-          <% end %>
-
-
-        <!-- Contenu de la carte -->
-        <div class="card-body">
-          <h1 class="card-title mb-3"><%= @article.title %></h1> <!-- Titre en plus grand -->
-          <p class="card-text text-muted mb-4"><%= @article.content %></p> <!-- Affichage complet du contenu -->
-        </div>
+        <h1 class="card-title mb-3"><%= @article.title %></h1> <!-- Titre en plus grand -->
+        <p class="card-text text-muted mb-4"><%= @article.content %></p> <!-- Affichage complet du contenu -->
       </div>
     </div>
+  </div>
+</div>
+
   </div>
 </div>
 
@@ -25,20 +25,20 @@
   <div class="row">
     <% @related_articles.each do |related| %>
       <div class="col-md-4">
-        <div class="card h-100 hover-card">
+        <%= link_to article_path(related), class: "card h-100 hover-card mx-3 text-decoration-none text-dark" do %>
           <% if related.image.attached? %>
-            <%= image_tag related.image, class: "card-img-top" %>
+            <%= image_tag related.image, class: "card-img-top custom-rounded-top" %> <!-- Coins arrondis en haut -->
           <% else %>
-            <div class="card-img-top no-image-placeholder">
+            <div class="card-img-top no-image-placeholder custom-rounded-top">
               <p>Aucune image disponible</p>
             </div>
           <% end %>
 
-          <div class="card-body">
-            <h5 class="card-title"><%= link_to related.title, article_path(related) %></h5>
+          <div class="card-body custom-rounded-bottom">
+            <h5 class="card-title"><%= related.title %></h5>
             <p class="card-text text-muted"><%= truncate(related.content, length: 100) %></p>
           </div>
-        </div>
+        <% end %>
       </div>
     <% end %>
   </div>

@@ -16,24 +16,19 @@
               </ul>
             </div>
           <% end %>
-
           <!-- Formulaire de création de tag -->
           <!-- Bouton Retour au dashboard -->
           <%= link_to "Retour au dashboard", "/admin/dashboard", class: "btn btn-outline-secondary w-100 mb-3 mt-3 rounded-custom" %>
           <%= form_with(model: @tag, local: true) do |form| %>
-
             <!-- Champ nom -->
             <div class="form-group">
               <%= form.label :name, "Nom du Tag", class: "form-label" %>
               <%= form.text_field :name, class: "form-control", placeholder: "nom du tag" %>
             </div>
-
             <!-- Boutons d'action -->
             <div class="d-flex justify-content-between mt-3">
-
-              <%= form.submit "Créer le Tag", class: "btn btn-primary" %>
+              <%= form.submit "Créer le Tag", class: "btn btn-primary w-100 mb-3 mt-3 rounded-custom" %>
             </div>
-
           <% end %>
         </div>
       </div>
