@@ -44,7 +44,7 @@
                     <td><%= tag.name %></td>
                     <td>
                       <%= link_to 'Editer', edit_admin_tag_path(tag), class: 'btn btn-primary btn-sm rounded-custom' %>
-                      <%= link_to 'Supprimer', admin_tag_path(tag), method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: 'btn btn-danger btn-sm rounded-custom' %>
+                      <%= link_to 'Supprimer', admin_tag_path(tag), method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: 'btn btn-secondary btn-sm rounded-custom' %>
                     </td>
                   </tr>
                 <% end %>

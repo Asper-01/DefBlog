@@ -4,7 +4,19 @@ module Admin
     before_action :set_article, only: [:edit, :update, :destroy]
 
     def index
-      @articles = Article.includes(:tags).page(params[:page]).per(5)
+      # Initialisation de la requête des articles
+      @articles = Article.includes(:tags)
+
+      # Recherche par titre
+      if params[:search].present?
+        @articles = @articles.where("title ILIKE ?", "%#{params[:search]}%")
+      end
+
+      # Tri par colonne et direction
+      sort_column = params[:sort] || "created_at" # Par défaut trié par date
+      sort_direction = params[:direction] || "asc" # Par défaut tri croissant
+
+      @articles = @articles.order("#{sort_column} #{sort_direction}").page(params[:page]).per(5)
     end
 
     def show
@@ -16,7 +28,6 @@ module Admin
       @articles = Article.all
     end
 
-    # Crée un nouvel article avec les paramètres transmis
     def create
       @article = Article.new(article_params)
       @article.author = current_user
@@ -27,19 +38,14 @@ module Admin
       end
     end
 
-    # Récupère l'article à modifier
     def edit
-      # L'article est déjà chargé par le before_action `set_article`
+      @article = Article.find(params[:id])
     end
 
-    # Met à jour l'article
     def update
-      # Ajout : Gestion de la suppression de l'image
       if params[:article][:remove_image] == "1" && @article.image.attached?
-        @article.image.purge # Supprime l'image actuelle si la case est cochée
+        @article.image.purge
       end
-
-      # Mettre à jour l'article
       if @article.update(article_params)
         redirect_to admin_articles_path, notice: 'Article mis à jour avec succès.'
       else
@@ -47,23 +53,18 @@ module Admin
       end
     end
 
-    # Supprime un article
     def destroy
       @article = Article.find(params[:id])
       @article.destroy
       redirect_to admin_articles_path, notice: 'Article supprimé avec succès.'
-    rescue ActiveRecord::RecordNotFound
-      redirect_to admin_articles_path, alert: 'Article introuvable.'
     end
 
     private
 
-    # Définit les paramètres autorisés pour l'article
     def article_params
-      params.require(:article).permit(:title, :content, :image, :remove_image, tag_ids: []) # Inclut l'image et le parametre remove
+      params.require(:article).permit(:title, :content, :image, :remove_image, tag_ids: [])
     end
 
-    # Recherche l'article par ID, utilisé dans les actions :edit, :update, :destroy
     def set_article
       @article = Article.find(params[:id])
     rescue ActiveRecord::RecordNotFound

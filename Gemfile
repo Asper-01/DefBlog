@@ -52,6 +52,9 @@ gem "simple_form", github: "heartcombo/simple_form"
 gem "sassc-rails"
 # pagination des articles:
 gem 'kaminari'
+# gestion miniatures img:
+gem 'mini_magick'
+gem 'image_processing', '~> 1.2'
 
 
 
