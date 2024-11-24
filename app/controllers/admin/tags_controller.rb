@@ -1,80 +1,68 @@
 module Admin
-class TagsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :check_admin
-  before_action :set_tag, only: [:show, :edit, :update, :destroy]
+  class TagsController < ApplicationController
+    before_action :authenticate_user!
+    before_action :check_admin
+    before_action :set_tag, only: [:show, :edit, :update, :destroy]
 
-  def index
-    # Recherche pour les tags
-    if params[:search].present?
-      @tags = Tag.where("name LIKE ?", "%#{params[:search]}%")
-    else
+    def index
+      # Gestion des paramètres de tri
+      sort_column = %w[id name].include?(params[:sort]) ? params[:sort] : "id" # Par défaut, tri par ID
+      sort_direction = %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc" # Par défaut, tri ascendant
+
+      # Recherche et tri des tags
       @tags = Tag.all
+      @tags = @tags.where("name ILIKE ?", "%#{params[:search]}%") if params[:search].present?
+      @tags = @tags.order("#{sort_column} #{sort_direction}")
+
+      # Pagination
+      @tags = @tags.page(params[:page])
     end
 
-    # Ajout de la pagination
-    @tags = @tags.includes(:articles).page(params[:page]).per(5)
+    def show
+      @tags = Tag.includes(:articles).page(params[:id])
+    end
 
-    # Chargement des articles (si besoin d'un tableau d'articles paginés)
-    @articles = Article.page(params[:articles_page]).per(5)
-  end
+    def new
+      @tag = Tag.new
+    end
 
+    def create
+      @tag = Tag.new(tag_params)
+      if @tag.save
+        redirect_to admin_tags_path, notice: "Tag créé avec succès."
+      else
+        render :new, status: :unprocessable_entity
+      end
+    end
 
-  def show
-    @tags = Tag.includes(:articles).page(params[:id])
-  end
+    def edit; end
 
-  def new
-    @tag = Tag.new
-    @tags = Tag.order(:id) # Tri par ID
-  end
+    def update
+      if @tag.update(tag_params)
+        redirect_to admin_tags_path, notice: "Le tag a été mis à jour avec succès."
+      else
+        render :edit, status: :unprocessable_entity
+      end
+    end
 
-  def create
-    @tag = Tag.new(tag_params)
-    if @tag.save
-      redirect_to admin_tags_path, notice: "Tag créé avec succès."
-    else
-      @tags = Tag.all # Nécessaire pour réafficher les tags sur la page
-      render :index, status: :unprocessable_entity
+    def destroy
+      if @tag.destroy
+        redirect_to admin_tags_path, notice: "Tag supprimé avec succès."
+      else
+        redirect_to admin_tags_path, alert: "Erreur lors de la suppression du tag."
+      end
+    end
+
+    private
+
+    def set_tag
+      @tag = Tag.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to admin_tags_path, alert: "Tag non trouvé."
+    end
+
+    def tag_params
+      params.require(:tag).permit(:name)
     end
   end
-
-  # Action d'édition
-  def edit
-    @tag = Tag.find(params[:id])
-  end
-
-
-  # Action de mise à jour
-  def update
-    @tag = Tag.find(params[:id])
-    if @tag.update(tag_params)
-      redirect_to admin_tags_path, notice: 'Le tag a été mis à jour avec succès.'
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
-
-  # Action suppresion
-  def destroy
-    if @tag.destroy
-      redirect_to admin_tags_path, notice: "Tag supprimé avec succès"
-    else
-      redirect_to admin_tags_path, alert: "Erreur lors de la suppression du tag"
-    end
-  end
-
-
-  private
-  def set_tag
-    @tag = Tag.find(params[:id])  # Vérifie que params[:id] correspond bien à un ID valide
-  rescue ActiveRecord::RecordNotFound
-    redirect_to tags_path, alert: "Tag non trouvé"
-  end
-
-  def tag_params
-    params.require(:tag).permit(:name)
-  end
-
-end
 end

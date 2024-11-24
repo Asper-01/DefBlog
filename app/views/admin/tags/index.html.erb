@@ -5,7 +5,6 @@
         <div class="card-body">
           <h1 class="card-title mb-4">Gestion des Tags</h1>
 
-          <!-- Bouton Retour au dashboard -->
           <%= link_to "Retour au dashboard", "/admin/dashboard", class: "btn btn-outline-secondary w-100 mb-3 mb-4 rounded-custom" %>
 
           <!-- Barre de recherche -->
@@ -18,24 +17,40 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Nom</th>
+                <th>
+                  <%= link_to admin_tags_path(params.permit(:search).to_h.merge(sort: "id", direction: toggle_direction("id"))), class: "d-flex align-items-center" do %>
+                    ID
+                    <% if params[:sort] == "id" %>
+                      <%= params[:direction] == "asc" ? "↑" : "↓" %>
+                    <% end %>
+                  <% end %>
+                </th>
+                <th>
+                  <%= link_to admin_tags_path(params.permit(:search).to_h.merge(sort: "name", direction: toggle_direction("name"))), class: "d-flex align-items-center" do %>
+                    Nom
+                    <% if params[:sort] == "name" %>
+                      <%= params[:direction] == "asc" ? "↑" : "↓" %>
+                    <% end %>
+                  <% end %>
+                </th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              <% @tags.each do |tag| %>
-                <tr>
-                  <td><%= tag.id %></td>
-                  <td><%= tag.name %></td>
-                  <td>
-                    <div class="d-flex gap-2">
+              <% if @tags.present? %>
+                <% @tags.each do |tag| %>
+                  <tr>
+                    <td><%= tag.id %></td>
+                    <td><%= tag.name %></td>
+                    <td>
                       <%= link_to 'Editer', edit_admin_tag_path(tag), class: 'btn btn-primary btn-sm rounded-custom' %>
-                      <%= form_with(model: tag, url: admin_tag_path(tag), method: :delete, local: true) do |form| %>
-                        <%= form.submit 'Supprimer', class: 'btn btn-danger btn-sm rounded-custom', data: { confirm: "Êtes-vous sûr de vouloir supprimer ce tag ?" } %>
-                      <% end %>
-                    </div>
-                  </td>
+                      <%= link_to 'Supprimer', admin_tag_path(tag), method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: 'btn btn-danger btn-sm rounded-custom' %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% else %>
+                <tr>
+                  <td colspan="3">Aucun tag trouvé.</td>
                 </tr>
               <% end %>
             </tbody>

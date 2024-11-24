@@ -2,11 +2,10 @@
   <div class="row justify-content-center">
     <div class="col-12 mb-4">
       <% if @article.image.attached? %>
-        <%= image_tag @article.image, class: "article-card-img custom-rounded-top" %> <!-- Ajout de custom-rounded-top -->
+        <%= image_tag @article.image, class: "article-card-img custom-rounded-top" %>
       <% else %>
         <p>Aucune image disponible</p>
       <% end %>
-      <!-- Contenu de la carte -->
       <div class="card-body">
         <!-- Tags et Date de publication au-dessus du titre -->
         <div class="d-flex justify-content-between mb-3">
@@ -15,8 +14,8 @@
             <span><%= tags %> • <%= @article.created_at.strftime("%d/%m/%Y") %></span>
           </div>
         </div>
-        <h1 class="card-title mb-3"><%= @article.title %></h1> <!-- Titre en plus grand -->
-        <p class="card-text text-muted mb-4"><%= @article.content %></p> <!-- Affichage complet du contenu -->
+        <h1 class="card-title mb-3"><%= @article.title %></h1>
+        <p class="card-text text-muted mb-4"><%= @article.content %></p>
       </div>
     </div>
   </div>
@@ -29,18 +28,16 @@
 <div class="container mt-5">
   <div class="row">
     <% @related_articles.each do |related| %>
-      <div class="col-lg-4 col-md-6 col-12 mb-4"> <!-- Disposition identique à l'accueil -->
+      <div class="col-lg-4 col-md-6 col-12 mb-4">
         <%= link_to article_path(related), class: "card h-100 hover-card mx-3 text-decoration-none text-dark" do %>
           <% if related.image.attached? %>
-            <%= image_tag related.image, class: "card-img-top custom-rounded-top" %> <!-- Coins arrondis en haut -->
+            <%= image_tag related.image, class: "card-img-top custom-rounded-top" %>
           <% else %>
             <div class="card-img-top no-image-placeholder custom-rounded-top">
               <p>Aucune image disponible</p>
             </div>
           <% end %>
-
           <div class="card-body custom-rounded-bottom">
-            <!-- Tags et Date de publication au-dessus du titre -->
             <div class="d-flex justify-content-between mb-3">
               <div class="card-meta text-muted">
                 <% tags = related.tags.limit(2).map(&:name).join(", ") %>
