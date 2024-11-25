@@ -1,49 +1,65 @@
-
-  .card-body {
-    border-radius: 8px;
-    background: #fcfcfc;
-    box-shadow: inset -4px 4px 8px #ffffff,
-          inset 4px -4px 8px #ffffff;
-
+/* La carte bannière occupe toute la largeur de l'écran et prend environ 20-25% de la hauteur */
+.banner-card {
+  width: 100vw; /* Carte pleine largeur de l'écran */
+  height: 25vh; /* Hauteur de la carte à 25% de la hauteur de la fenêtre */
+  border-radius: 0; /* Pas d’arrondi pour la carte */
+  overflow: hidden;
+  position: relative;
+  margin-left: calc(-50vw + 50%); /* Centre la carte sur l'écran en sortant de la "container" */
 }
-/* Cartes en Neumorphism avec bordures légères */
+
+/* Conteneur de l'image de la bannière */
+.image-container {
+  width: 100%;
+  height: 100%; /* Hauteur de l'image sur toute la carte */
+  position: relative;
+}
+
+/* Image de la bannière */
+.card-img-top {
+  width: 100%; /* Prend toute la largeur de la carte */
+  height: 100%; /* Hauteur égale à la carte */
+  object-fit: cover; /* Couvre l'espace sans déformer l'image */
+}
+
+/* Logo superposé sur l'image */
+.logo-animation {
+  width: 100px; /* Taille fixe du logo */
+  bottom: 10px; /* Décalage depuis le bas */
+  left: 10px; /* Décalage depuis la gauche */
+  opacity: 0; /* Invisible par défaut */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Transition douce pour l’apparition */
+  position: absolute;
+}
+
+/* Affichage du logo uniquement au survol de l'image */
+.image-container:hover .logo-animation {
+  opacity: 1; /* Le logo devient visible */
+  transform: translateY(0); /* Restauration de la position */
+}
+
+/* Style pour les autres cartes */
+.card-body {
+  border-radius: 8px;
+  background: #fcfcfc;
+  box-shadow: inset -4px 4px 8px #ffffff, inset 4px -4px 8px #ffffff;
+}
+
+/* Style des cartes "Neumorphism" */
 .neumorphic-card {
   border-radius: 18px;
-  box-shadow: inset -4px 4px 8px #ffffff,
-          inset 4px -4px 8px #ffffff;
+  box-shadow: inset -4px 4px 8px #ffffff, inset 4px -4px 8px #ffffff;
 }
 
-
-/* Cartes articles show */
-.card-img-top {
-  padding: 0; /* Supprime les marges internes */
-  margin: 0; /* Supprime les marges externes */
-  width: 100%; /* Prend la largeur totale */
-}
-
-.card {
-  display: flex;
-  flex-direction: column; /* Assure un flux vertical */
-}
-@media (max-width: 576px) {
-  .card-img-top {
-    height: auto; /* Assure une hauteur fluide */
-  }
-  .article-card-img {
-    object-fit: cover; /* Gère la manière dont l'image s'adapte */
-  }
-}
-.article-card-img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
+/* Cartes des articles */
 .card-img-top {
   padding: 0;
   margin: 0;
+  width: 100%;
+  height: auto;
 }
 
+/* Placeholder pour les images manquantes */
 .no-image-placeholder {
   text-align: center;
   margin: 0;

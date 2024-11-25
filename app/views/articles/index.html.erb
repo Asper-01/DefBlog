@@ -1,41 +1,41 @@
 <div class="container mt-4">
   <div class="row">
     <!-- Bannière du premier article sous forme de carte -->
-<% if @articles.any? %>
-  <div class="col-12 mb-4">
-    <%= link_to article_path(@articles.first), class: 'text-decoration-none' do %>
-      <div class="card h-100 hover-card position-relative">
-        <!-- Conteneur de l'image et du logo -->
-        <div class="image-container position-relative">
-          <% if @articles.first.image.attached? %>
-            <%= image_tag @articles.first.image, class: 'card-img-top custom-rounded-top' %>
-          <% else %>
-            <p>Aucune image disponible</p>
-          <% end %>
+    <% if @articles.any? %>
+      <div class="col-12 mb-4">
+        <%= link_to article_path(@articles.first), class: 'text-decoration-none' do %>
+          <div class="card banner-card position-relative"> <!-- Carte pleine largeur -->
+            <!-- Conteneur de l'image et du logo -->
+            <div class="image-container position-relative">
+              <% if @articles.first.image.attached? %>
+                <%= image_tag @articles.first.image, class: 'card-img-top custom-rounded-top' %>
+              <% else %>
+                <p>Aucune image disponible</p>
+              <% end %>
 
-          <!-- Logo superposé, visible uniquement sur l'image -->
-          <%= image_tag "logo.png", alt: "Logo", class: "logo-animation position-absolute" %>
-        </div>
+              <!-- Logo superposé, visible uniquement sur l'image -->
+              <%= image_tag "logo.png", alt: "Logo", class: "logo-animation position-absolute" %>
+            </div>
 
-        <!-- Contenu de la carte -->
-        <div class="card-body">
-          <div class="card-meta text-muted mt-2">
-            <% tags = @articles.first.tags.limit(2).map(&:name).join(", ") %>
-            <span><%= tags %> • <%= @articles.first.created_at.strftime("%d/%m/%Y") %></span>
+            <!-- Contenu de la carte -->
+            <div class="card-body">
+              <div class="card-meta text-muted mt-2">
+                <% tags = @articles.first.tags.limit(2).map(&:name).join(", ") %>
+                <span><%= tags %> • <%= @articles.first.created_at.strftime("%d/%m/%Y") %></span>
+              </div>
+              <h5 class="card-title"><%= @articles.first.title %></h5>
+              <p class="card-text"><%= truncate(@articles.first.content, length: 150) %></p>
+            </div>
           </div>
-          <h5 class="card-title"><%= @articles.first.title %></h5>
-          <p class="card-text"><%= truncate(@articles.first.content, length: 150) %></p>
-        </div>
+        <% end %>
       </div>
     <% end %>
-  </div>
-<% end %>
-
 
     <!-- Barre de séparation avec "Derniers articles" -->
     <div class="separator mt-4 mb-4">
       <span class="separator-text">Derniers articles</span>
     </div>
+
     <!-- Boucle pour les autres cartes, affichées en 3 colonnes sur grand écran -->
     <div class="row">
       <% @articles.drop(1).each do |article| %>
@@ -48,7 +48,6 @@
                 <p>Aucune image disponible</p>
               <% end %>
               <div class="card-body">
-                                <!-- Tags et date -->
                 <div class="card-meta text-muted mt-2">
                   <% tags = article.tags.limit(2).map(&:name).join(", ") %>
                   <span><%= tags %> • <%= article.created_at.strftime("%d/%m/%Y") %></span>
@@ -63,43 +62,3 @@
     </div>
   </div>
 </div>
-
-<style>
-
-/* Masquer le logo par défaut */
-.logo-animation {
-  width: 100px; /* Taille du logo */
-  opacity: 0; /* Invisible par défaut */
-  transition: opacity 0.3s ease, transform 0.3s ease; /* Transition pour l'apparition et l'animation */
-  position: absolute;
-  bottom: 10px; /* Décalage du bas de l'image */
-  left: 10px;  /* Décalage du côté gauche de l'image */
-}
-
-/* Empêcher le logo de sortir de l'image */
-.image-container {
-  position: relative;
-  display: inline-block; /* Permet de positionner le logo uniquement par rapport à l'image */
-}
-
-/* Affichage du logo uniquement sur l'image au survol */
-.image-container:hover .logo-animation {
-  opacity: 1; /* Le logo devient visible */
-  transform: translateY(0); /* Pas de décalage, logo au point de départ */
-}
-
-/* Animation du logo (optionnelle, pour un effet de rebond) */
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px); /* Le logo remonte légèrement */
-  }
-}
-
-
-
-
-
-</style>
