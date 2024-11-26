@@ -1,23 +1,13 @@
 <div class="banner-container">
   <% if @articles.any? %>
     <div class="banner-card">
-
+      <%= link_to article_path(@articles.first), class: 'text-decoration-none' do %>
         <div class="banner-image-container">
-                <%= link_to article_path(@articles.first), class: 'text-decoration-none' do %>
           <% if @articles.first.image.attached? %>
             <%= image_tag @articles.first.image, class: 'banner-image' %>
           <% else %>
             <p class="banner-no-image">Aucune image disponible</p>
           <% end %>
-
-          <!-- Tags en haut à gauche -->
-          <div class="banner-tags">
-            <% @articles.first.tags.limit(2).each do |tag| %>
-              <%= link_to tag.name, tag_path(tag), class: 'btn btn-outline-primary tag-btn' %><%= " " unless tag == @articles.first.tags.limit(2).last %>
-            <% end %>
-          </div>
-        </div>
-
         <div class="banner-content">
           <div class="banner-title-date">
             <h5 class="banner-title"><%= @articles.first.title %></h5>
@@ -28,5 +18,12 @@
         </div>
       <% end %>
     </div>
+             <!-- Tags en haut à gauche -->
+          <div class="banner-tags">
+            <% @articles.first.tags.limit(2).each do |tag| %>
+              <%= link_to tag.name, tag_path(tag), class: 'btn btn-outline-dark tag-btn btn-sm' %><%= " " unless tag == @articles.first.tags.limit(2).last %>
+            <% end %>
+          </div>
+        </div>
   <% end %>
 </div>

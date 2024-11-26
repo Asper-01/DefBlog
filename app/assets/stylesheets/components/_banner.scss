@@ -60,17 +60,17 @@
 }
 
 .tag-btn {
-  margin: 5px;
+  margin: 3px;
   border-radius: 25px;
-  padding: 8px 20px;
+  padding: 7px 14px;
   font-size: 0.9rem;
   transition: background-color 0.3s, border-color 0.3s;
 }
 
 .tag-btn:hover {
-  background-color: #007bffc3;
-  color: white;
-  border-color: #007bff;
+  background-color: #2f303135;
+  color: rgba(0, 0, 0, 0.919);
+  border-color: #030303;
 }
 
 .banner-title-date {
