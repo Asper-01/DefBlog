@@ -1,13 +1,41 @@
-.navbar-lewagon {
-  justify-content: space-between;
+/* Navbar principale */
+.custom-navbar {
   background: white;
+  padding: 20px 0; /* Espacement global pour une apparence propre */
+  display: flex;
+  flex-direction: column; /* Organisation verticale */
+  align-items: center; /* Centre tous les enfants horizontalement */
 }
 
-.navbar-lewagon .navbar-collapse {
-  flex-grow: 0;
+/* Logo centré */
+.navbar-logo-container {
+  margin-bottom: 20px; /* Espace entre le logo et les boutons */
 }
 
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
+.navbar-logo {
+  max-height: 100px; /* Ajuste la taille du logo */
+  height: auto;
+  display: block;
+  margin: 0 auto; /* Centre horizontalement */
 }
 
+/* Boutons/liens centrés */
+.navbar-buttons {
+  margin-top: 10px; /* Espace au-dessus des boutons */
+}
+
+.navbar-buttons ul {
+  list-style: none; /* Supprime les puces */
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row; /* Aligne les boutons horizontalement */
+  justify-content: center; /* Centre les boutons horizontalement */
+  gap: 20px; /* Espace uniforme entre les boutons */
+}
+
+.navbar-buttons .nav-link {
+  font-size: 16px; /* Taille de la police des liens */
+  padding: 5px 15px; /* Espacement intérieur pour un clic confortable */
+  text-align: center;
+}
