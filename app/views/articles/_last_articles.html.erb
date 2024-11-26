@@ -1,0 +1,28 @@
+<div class="last-articles-container">
+  <div class="last-articles-separator">
+    <span class="last-articles-title">Derniers articles</span>
+  </div>
+  <div class="row">
+    <% @articles.drop(1).each do |article| %>
+      <div class="col-lg-4 col-md-6 col-12 last-article-card">
+        <%= link_to article_path(article), class: 'text-decoration-none' do %>
+          <div class="card last-article">
+            <% if article.image.attached? %>
+              <%= image_tag article.image, class: 'last-article-image' %>
+            <% else %>
+              <p class="last-article-no-image">Aucune image disponible</p>
+            <% end %>
+            <div class="last-article-body">
+              <div class="last-article-meta">
+                <% tags = article.tags.limit(2).map(&:name).join(", ") %>
+                <span><%= tags %> • <%= article.created_at.strftime("%d/%m/%Y") %></span>
+              </div>
+              <h5 class="last-article-title"><%= article.title %></h5>
+              <p class="last-article-text"><%= truncate(article.content, length: 100) %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

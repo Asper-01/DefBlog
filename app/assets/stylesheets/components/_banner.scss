@@ -1,0 +1,66 @@
+.banner-container {
+  margin-top: 20px;
+}
+
+.banner-card {
+  width: 60vw;
+  height: 60vh;
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner-image-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.banner-no-image {
+  text-align: center;
+  color: #999;
+}
+
+.banner-logo {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: 100px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.banner-image-container:hover .banner-logo {
+  opacity: 1;
+}
+
+.banner-content {
+  position: absolute;
+  bottom: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  width: 100%;
+  padding: 10px;
+}
+
+.banner-meta {
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.banner-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.banner-text {
+  font-size: 1rem;
+}

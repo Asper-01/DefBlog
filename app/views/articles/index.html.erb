@@ -1,64 +1,8 @@
 <div class="container mt-4">
-  <div class="row">
-    <!-- Bannière du premier article sous forme de carte -->
-    <% if @articles.any? %>
-      <div class="col-12 mb-4">
-        <%= link_to article_path(@articles.first), class: 'text-decoration-none' do %>
-          <div class="card banner-card position-relative"> <!-- Carte pleine largeur -->
-            <!-- Conteneur de l'image et du logo -->
-            <div class="image-container position-relative">
-              <% if @articles.first.image.attached? %>
-                <%= image_tag @articles.first.image, class: 'card-img-top custom-rounded-top' %>
-              <% else %>
-                <p>Aucune image disponible</p>
-              <% end %>
 
-              <!-- Logo superposé, visible uniquement sur l'image -->
-              <%= image_tag "logo.png", alt: "Logo", class: "logo-animation position-absolute" %>
-            </div>
+  <!-- Bannière" -->
+  <%= render 'articles/banner' %>
 
-            <!-- Contenu de la carte -->
-            <div class="card-body">
-              <div class="card-meta text-muted mt-2">
-                <% tags = @articles.first.tags.limit(2).map(&:name).join(", ") %>
-                <span><%= tags %> • <%= @articles.first.created_at.strftime("%d/%m/%Y") %></span>
-              </div>
-              <h5 class="card-title"><%= @articles.first.title %></h5>
-              <p class="card-text"><%= truncate(@articles.first.content, length: 150) %></p>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+  <%= render 'articles/last_articles' %>
 
-    <!-- Barre de séparation avec "Derniers articles" -->
-    <div class="separator mt-4 mb-4">
-      <span class="separator-text">Derniers articles</span>
-    </div>
-
-    <!-- Boucle pour les autres cartes, affichées en 3 colonnes sur grand écran -->
-    <div class="row">
-      <% @articles.drop(1).each do |article| %>
-        <div class="col-lg-4 col-md-6 col-12 mb-4">
-          <%= link_to article_path(article), class: 'text-decoration-none' do %>
-            <div class="card h-100 hover-card">
-              <% if article.image.attached? %>
-                <%= image_tag article.image, class: 'card-img-top custom-rounded-top card-img-fixed' %>
-              <% else %>
-                <p>Aucune image disponible</p>
-              <% end %>
-              <div class="card-body">
-                <div class="card-meta text-muted mt-2">
-                  <% tags = article.tags.limit(2).map(&:name).join(", ") %>
-                  <span><%= tags %> • <%= article.created_at.strftime("%d/%m/%Y") %></span>
-                </div>
-                <h5 class="card-title"><%= article.title %></h5>
-                <p class="card-text"><%= truncate(article.content, length: 100) %></p>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  </div>
 </div>
