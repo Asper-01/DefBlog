@@ -1,29 +1,32 @@
 <div class="banner-container">
   <% if @articles.any? %>
-    <%= link_to article_path(@articles.first), class: 'text-decoration-none' do %>
-      <div class="banner-card">
+    <div class="banner-card">
+
         <div class="banner-image-container">
+                <%= link_to article_path(@articles.first), class: 'text-decoration-none' do %>
           <% if @articles.first.image.attached? %>
             <%= image_tag @articles.first.image, class: 'banner-image' %>
           <% else %>
             <p class="banner-no-image">Aucune image disponible</p>
           <% end %>
 
-          <!-- Logo superposé à gauche -->
-          <%= image_tag "logo.png", alt: "Logo", class: "banner-logo" %>
+          <!-- Tags en haut à gauche -->
+          <div class="banner-tags">
+            <% @articles.first.tags.limit(2).each do |tag| %>
+              <%= link_to tag.name, tag_path(tag), class: 'btn btn-outline-primary tag-btn' %><%= " " unless tag == @articles.first.tags.limit(2).last %>
+            <% end %>
+          </div>
         </div>
 
         <div class="banner-content">
-          <div>
-            <div class="banner-meta">
-              <% tags = @articles.first.tags.limit(2).map(&:name).join(", ") %>
-              <span><%= tags %> • <%= @articles.first.created_at.strftime("%d/%m/%Y") %></span>
-            </div>
+          <div class="banner-title-date">
             <h5 class="banner-title"><%= @articles.first.title %></h5>
-            <p class="banner-text"><%= truncate(@articles.first.content, length: 150) %></p>
+            <span class="banner-date"> <%= @articles.first.created_at.strftime("%d/%m/%Y") %></span>
           </div>
+
+          <p class="banner-text"><%= truncate(@articles.first.content, length: 150) %></p>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   <% end %>
 </div>

@@ -6,8 +6,13 @@ class TagsController < ApplicationController
     @tags = Tag.all
   end
 
+
   def show
+    @tag = Tag.find(params[:id])
+    @articles = @tag.articles.order(created_at: :desc)
   end
+
+
 
   def new
     @tag = Tag.new
