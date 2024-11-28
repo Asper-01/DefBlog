@@ -76,17 +76,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const categorySelect = document.getElementById("category_select");
   const tagsContainer = document.getElementById("tags_container");
 
-  categorySelect.addEventListener("change", async (event) => {
-    const categoryId = event.target.value;
-
-    // Si une catégorie est sélectionnée
+  const loadTags = async (categoryId) => {
     if (categoryId) {
       try {
-        // Requête pour obtenir les tags de la catégorie
         const response = await fetch(`/admin/categories/${categoryId}/tags`);
         const tags = await response.json();
 
-        // Générer les cases à cocher pour les tags
         if (tags.length > 0) {
           tagsContainer.innerHTML = tags
             .map(tag => `
@@ -104,9 +99,24 @@ document.addEventListener("DOMContentLoaded", () => {
         tagsContainer.innerHTML = "<p class='text-danger'>Impossible de charger les tags. Réessayez plus tard.</p>";
       }
     } else {
-      // Si aucune catégorie n'est sélectionnée
       tagsContainer.innerHTML = "<p class='text-muted'>Veuillez sélectionner une catégorie pour voir les tags disponibles.</p>";
     }
+  };
+
+  // Définir une catégorie par défaut
+  const defaultCategoryId = "1"; // Remplacez "1" par l'ID de la catégorie souhaitée par défaut
+  if (categorySelect) {
+    console.log("Sélection de la catégorie par défaut :", defaultCategoryId);
+    categorySelect.value = defaultCategoryId;
+    loadTags(defaultCategoryId);
+  }
+
+
+  // Charger les tags lors du changement de catégorie
+  categorySelect.addEventListener("change", (event) => {
+    const categoryId = event.target.value;
+    loadTags(categoryId);
   });
 });
+
 </script>

@@ -47,15 +47,10 @@ class Admin::CategoriesController < ApplicationController
   end
 
   def tags
-    category = Category.find_by(id: params[:id]) || Category.first
-    if category
-      render json: category.tags.select(:id, :name)
-    else
-      render json: { error: "Category not found" }, status: :not_found
-    end
+    category = Category.find(params[:id])
+    render json: category.tags.select(:id, :name) # Renvoie l'id et le nom des tags
   end
-
-
+  
   private
 
   def set_category
