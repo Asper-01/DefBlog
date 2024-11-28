@@ -1,13 +1,12 @@
 class Admin::CategoriesController < ApplicationController
-  before_action :set_category, only: [:create, :edit, :update, :destroy]
+  before_action :set_category, only: [:edit, :update, :destroy]
 
   def index
-    # Initialisation de la requête des categories
-    @categories = Category
+    @categories = Category.all
 
     # Recherche par titre
     if params[:search].present?
-      @categories = @categories.where("title ILIKE ?", "%#{params[:search]}%")
+      @categories = @categories.where("name ILIKE ?", "%#{params[:search]}%")
     end
 
     # Tri par colonne et direction
@@ -35,7 +34,7 @@ class Admin::CategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
-      redirect_to edit_admin_categories_path, notice: "Catégorie mise à jour avec succès."
+      redirect_to admin_categories_path, notice: "Catégorie mise à jour avec succès."
     else
       render :edit
     end
@@ -47,14 +46,20 @@ class Admin::CategoriesController < ApplicationController
     redirect_to admin_categories_path, notice: "Catégorie supprimée avec succès."
   end
 
-
+  def tags
+    category = Category.find(params[:id])
+    render json: category.tags.select(:id, :name) # Renvoie l'id et le nom des tags
+  end
+  
   private
 
   def set_category
-    @category = Category.find(params[:id])
+    # Recherche d'une catégorie existante uniquement pour l'édition, la mise à jour et la suppression
+    @category = Category.find(params[:id]) if params[:id].present?
   end
 
   def category_params
+    # Ici, on permet uniquement le paramètre `name` pour la création et la mise à jour de la catégorie
     params.require(:category).permit(:name)
   end
 end

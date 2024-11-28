@@ -42,18 +42,24 @@
             <%= form.file_field :image, required: true, class: "form-control" %>
           </div>
 
-          <!-- Champ tags -->
-          <div class="form-group mt-3">
-            <%= form.label :tag_ids, "Associer des tags", class: "form-label" %>
-            <div class="d-flex flex-wrap gap-3">
-              <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name, { multiple: true }, { class: 'form-check-input' } do |checkbox| %>
-                <div class="form-check">
-                  <%= checkbox.check_box %>
-                  <%= checkbox.label(class: 'form-check-label ms-2') %>
-                </div>
-              <% end %>
+
+
+          <!-- Sélection de la catégorie -->
+          <div class="form-group">
+            <%= form.label :category_id, "Catégorie", class: "form-label" %>
+            <%= select_tag 'category_id', options_from_collection_for_select(Category.all, :id, :name, { prompt: "Choisir une catégorie" }),
+              class: "form-control", id: "category_select" %>
+          </div>
+
+          <!-- Conteneur pour les tags liés -->
+          <div class="form-group mt-3" id="tags_section">
+            <label class="form-label">Associer des tags</label>
+            <div id="tags_container">
+              <p class="text-muted">Veuillez d'abord sélectionner une catégorie.</p>
             </div>
           </div>
+
+
 
           <!-- Bouton de création -->
           <div class="card-body">
@@ -64,3 +70,43 @@
     </div>
   </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const categorySelect = document.getElementById("category_select");
+  const tagsContainer = document.getElementById("tags_container");
+
+  categorySelect.addEventListener("change", async (event) => {
+    const categoryId = event.target.value;
+
+    // Si une catégorie est sélectionnée
+    if (categoryId) {
+      try {
+        // Requête pour obtenir les tags de la catégorie
+        const response = await fetch(`/admin/categories/${categoryId}/tags`);
+        const tags = await response.json();
+
+        // Générer les cases à cocher pour les tags
+        if (tags.length > 0) {
+          tagsContainer.innerHTML = tags
+            .map(tag => `
+              <div class="form-check">
+                <input type="checkbox" name="article[tag_ids][]" value="${tag.id}" class="form-check-input" id="tag_${tag.id}">
+                <label for="tag_${tag.id}" class="form-check-label ms-2">${tag.name}</label>
+              </div>
+            `)
+            .join("");
+        } else {
+          tagsContainer.innerHTML = "<p class='text-muted'>Aucun tag disponible pour cette catégorie.</p>";
+        }
+      } catch (error) {
+        console.error("Erreur lors du chargement des tags :", error);
+        tagsContainer.innerHTML = "<p class='text-danger'>Impossible de charger les tags. Réessayez plus tard.</p>";
+      }
+    } else {
+      // Si aucune catégorie n'est sélectionnée
+      tagsContainer.innerHTML = "<p class='text-muted'>Veuillez sélectionner une catégorie pour voir les tags disponibles.</p>";
+    }
+  });
+});
+</script>

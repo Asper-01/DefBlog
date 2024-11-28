@@ -47,11 +47,20 @@
               <% end %>
             </div>
 
-            <!-- Champ tags : sélection des tags -->
-            <div class="form-group">
-              <%= form.label :tag_ids, "Associer des tags", class: "form-label" %>
-              <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name, { multiple: true }, { class: 'form-check-input' } %>
-            </div>
+            <!-- Sélectionner une catégorie -->
+<div class="form-group">
+  <%= form.label :category_id, "Catégorie", class: "form-label" %>
+  <%= select_tag 'category_id', options_from_collection_for_select(@categories, :id, :name),
+    { prompt: "Choisir une catégorie", class: "form-control", id: "category_select" } %>
+</div>
+
+<!-- Sélectionner les tags associés -->
+<div class="form-group" id="tags_section">
+  <%= form.label :tag_ids, "Associer des tags", class: "form-label" %>
+  <div id="tags_container">
+    <%# Les tags seront chargés dynamiquement %>
+  </div>
+</div>
 
             <%= form.submit "Créer l'article", class: "btn btn-primary" %>
 
