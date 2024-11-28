@@ -1,9 +1,9 @@
-<% if @articles.total_pages > 1 %>
-  <nav aria-label="Pagination des articles">
+<% if @categories.total_pages > 1 %>
+  <nav aria-label="Pagination des catégories">
     <ul class="pagination">
-      <% if @articles.prev_page %>
+      <% if @categories.prev_page %>
         <li class="page-item">
-          <%= link_to 'Précédent', url_for(page: @articles.prev_page), class: 'page-link' %>
+          <%= link_to 'Précédent', url_for(page: @categories.prev_page), class: 'page-link' %>
         </li>
       <% else %>
         <li class="page-item disabled">
@@ -11,21 +11,21 @@
         </li>
       <% end %>
 
-      <% (1..@articles.total_pages).each do |page| %>
-        <li class="page-item <%= 'active' if page == @articles.current_page %>">
+      <% (1..@categories.total_pages).each do |page| %>
+        <li class="page-item <%= 'active' if page == @categories.current_page %>">
           <%= link_to page, url_for(page: page), class: 'page-link' %>
         </li>
       <% end %>
 
-      <% if @articles.next_page %>
+      <% if @categories.next_page %>
         <li class="page-item">
-          <%= link_to 'Suivant', url_for(page: @articles.next_page), class: 'page-link' %>
+          <%= link_to 'Suivant', url_for(page: @categories.next_page), class: 'page-link' %>
         </li>
       <% else %>
         <li class="page-item disabled">
           <span class="page-link">Suivant</span>
         </li>
-_categories_pagination      <% end %>
+      <% end %>
     </ul>
   </nav>
 <% end %>
