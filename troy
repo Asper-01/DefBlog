@@ -1,0 +1,62 @@
+=> 
+[[32m#<Tag:0x00007feb5465cc90[0m
+  id: [34m[1m8[0m,
+  name: [31m[1m"[0m[31mSpatial[0m[31m[1m"[0m,
+  created_at: Thu, 21 Nov 2024 15:08:31.319789000 UTC +00:00,
+  updated_at: Thu, 21 Nov 2024 15:08:31.319789000 UTC +00:00,
+  category_id: [34m[1m1[0m[32m>[0m,
+ [32m#<Tag:0x00007feb5465cb78[0m
+  id: [34m[1m9[0m,
+  name: [31m[1m"[0m[31mTerre[0m[31m[1m"[0m,
+  created_at: Thu, 21 Nov 2024 15:08:35.475146000 UTC +00:00,
+  updated_at: Thu, 21 Nov 2024 15:08:35.475146000 UTC +00:00,
+  category_id: [34m[1m1[0m[32m>[0m,
+ [32m#<Tag:0x00007feb5465ca60[0m
+  id: [34m[1m4[0m,
+  name: [31m[1m"[0m[31mChine[0m[31m[1m"[0m,
+  created_at: Tue, 12 Nov 2024 15:27:51.041123000 UTC +00:00,
+  updated_at: Thu, 21 Nov 2024 15:36:17.367715000 UTC +00:00,
+  category_id: [34m[1m1[0m[32m>[0m,
+ [32m#<Tag:0x00007feb5465c948[0m
+  id: [34m[1m13[0m,
+  name: [31m[1m"[0m[31mMaroc[0m[31m[1m"[0m,
+  created_at: Thu, 21 Nov 2024 19:55:39.422805000 UTC +00:00,
+  updated_at: Thu, 21 Nov 2024 19:55:39.422805000 UTC +00:00,
+  category_id: [34m[1m1[0m[32m>[0m,
+ [32m#<Tag:0x00007feb5465c830[0m
+  id: [34m[1m6[0m,
+  name: [31m[1m"[0m[31mCivil[0m[31m[1m"[0m,
+  created_at: Thu, 21 Nov 2024 15:08:15.293022000 UTC +00:00,
+  updated_at: Thu, 21 Nov 2024 19:56:04.715387000 UTC +00:00,
+  category_id: [34m[1m1[0m[32m>[0m,
+ [32m#<Tag:0x00007feb5465c718[0m
+  id: [34m[1m12[0m,
+  name: [31m[1m"[0m[31mAéronautique[0m[31m[1m"[0m,
+  created_at: Thu, 21 Nov 2024 17:19:28.153619000 UTC +00:00,
+  updated_at: Thu, 21 Nov 2024 19:56:13.056326000 UTC +00:00,
+  category_id: [34m[1m1[0m[32m>[0m,
+ [32m#<Tag:0x00007feb5465c600[0m
+  id: [34m[1m14[0m,
+  name: [31m[1m"[0m[31mTest[0m[31m[1m"[0m,
+  created_at: Fri, 22 Nov 2024 18:07:10.602053000 UTC +00:00,
+  updated_at: Fri, 22 Nov 2024 18:07:10.602053000 UTC +00:00,
+  category_id: [34m[1m1[0m[32m>[0m,
+ [32m#<Tag:0x00007feb5465c4e8[0m
+  id: [34m[1m16[0m,
+  name: [31m[1m"[0m[31mRussie[0m[31m[1m"[0m,
+  created_at: Mon, 25 Nov 2024 18:31:32.097127000 UTC +00:00,
+  updated_at: Mon, 25 Nov 2024 18:31:32.097127000 UTC +00:00,
+  category_id: [34m[1m1[0m[32m>[0m,
+ [32m#<Tag:0x00007feb5465c3d0[0m
+  id: [34m[1m17[0m,
+  name: [31m[1m"[0m[31mUSA[0m[31m[1m"[0m,
+  created_at: Tue, 26 Nov 2024 15:14:57.145679000 UTC +00:00,
+  updated_at: Tue, 26 Nov 2024 15:14:57.145679000 UTC +00:00,
+  category_id: [34m[1m1[0m[32m>[0m,
+ [32m#<Tag:0x00007feb5465c2b8[0m
+  id: [34m[1m19[0m,
+  name: [31m[1m"[0m[31mMarine[0m[31m[1m"[0m,
+  created_at: Tue, 26 Nov 2024 20:21:50.582190000 UTC +00:00,
+  updated_at: Tue, 26 Nov 2024 20:21:50.582190000 UTC +00:00,
+  category_id: [34m[1m1[0m[32m>[0m,
+ [31m[1m"[0m[31m...[0m[31m[1m"[0m]

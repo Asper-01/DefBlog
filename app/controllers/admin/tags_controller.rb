@@ -4,6 +4,7 @@ module Admin
     before_action :check_admin
     before_action :set_tag, only: [:show, :edit, :update, :destroy]
 
+
     def index
       # Gestion des paramètres de tri
       sort_column = %w[id name].include?(params[:sort]) ? params[:sort] : "id" # Par défaut, tri par ID
@@ -27,15 +28,14 @@ module Admin
     end
 
     def create
+      Rails.logger.debug "Received params: #{params.inspect}"
       @tag = Tag.new(tag_params)
       if @tag.save
-        redirect_to admin_tags_path, notice: "Tag créé avec succès."
+        redirect_to new_admin_tags_path, notice: "Tag créé avec succès."
       else
         render :new, status: :unprocessable_entity
       end
     end
-
-    def edit; end
 
     def update
       if @tag.update(tag_params)
@@ -62,7 +62,7 @@ module Admin
     end
 
     def tag_params
-      params.require(:tag).permit(:name)
+      params.require(:tag).permit(:name, :category_id)
     end
   end
 end
