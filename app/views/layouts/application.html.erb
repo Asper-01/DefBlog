@@ -11,14 +11,11 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
 
     <!-- Importation de l'importmap et des scripts -->
-    <%= javascript_importmap_tags %>
-
-
-    <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
+    <!--  <%= javascript_importmap_tags %> -->
 
     <!-- Ajout d'un script externe pour la gestion des modules JavaScript -->
     <script src="https://unpkg.com/es-module-shims@1.4.1/dist/es-module-shims.js" async></script>
-
+    
   </head>
 
   <body>
