@@ -9,13 +9,10 @@
           <p class="banner-no-image">Aucune image disponible</p>
         <% end %>
       </div>
+
       <!-- Div du texte -->
       <div class="banner-text-container">
         <h5 class="banner-title"><%= @articles.first.title %></h5>
-
-        <!-- Nom de l'auteur -->
-        <p class="banner-author">Par <%= @articles.first.author.name %></p>
-
 
         <!-- Tags sous forme de texte cliquable -->
         <p class="banner-tags">
