@@ -4,7 +4,9 @@
       <!-- Div de l'image -->
       <div class="banner-image-container">
         <% if @articles.first.image.attached? %>
-          <%= image_tag @articles.first.image, class: 'banner-image' %>
+          <%= link_to article_path(@articles.first) do %>
+            <%= image_tag @articles.first.image, class: 'banner-image' %>
+          <% end %>
         <% else %>
           <p class="banner-no-image">Aucune image disponible</p>
         <% end %>
@@ -13,18 +15,21 @@
       <!-- Div du texte -->
       <div class="banner-text-container">
         <!-- Titre -->
-        <h5 class="banner-title"><%= @articles.first.title %></h5>
+        <h5 class="banner-title">
+          <%= link_to @articles.first.title, article_path(@articles.first) %>
+        </h5>
 
         <!-- Tags -->
         <div class="banner-tags">
           <% @articles.first.tags.limit(2).each do |tag| %>
-            <%= link_to tag.name, tag_path(tag), class: 'tag-link' %><%= ", " unless tag == @articles.first.tags.limit(2).last %>
+            <%= link_to tag.name, tag_path(tag), class: 'tag-link' %>
+            <%= ", " unless tag == @articles.first.tags.limit(2).last %>
           <% end %>
         </div>
 
         <!-- Résumé du contenu -->
         <div class="banner-text">
-          <p><%= truncate(@articles.first.content, length: 200) %></p>
+          <%= link_to truncate(@articles.first.content, length: 200), article_path(@articles.first) %>
         </div>
       </div>
     </div>
