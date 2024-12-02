@@ -7,7 +7,6 @@
         <p>Aucune image disponible</p>
       <% end %>
       <div class="card-body">
-        <!-- Tags et Date de publication au-dessus du titre -->
         <div class="d-flex justify-content-between mb-3">
           <div class="card-meta text-muted">
             <% tags = @article.tags.limit(2).map(&:name).join(", ") %>
@@ -21,34 +20,32 @@
   </div>
 </div>
 
-<div class="separator mt-4 mb-4">
-  <span class="separator-text">Articles liés</span>
+<!-- Section des commentaires -->
+<div class="container mt-5">
+  <h3>Commentaires</h3>
+
+  <% if @article.comments.any? %>
+    <ul class="list-group">
+      <% @article.comments.each do |comment| %>
+        <li class="list-group-item">
+          <strong>Posté le :</strong> <%= comment.created_at.strftime('%d/%m/%Y à %H:%M') %><br>
+          <%= comment.content %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="text-muted">Aucun commentaire pour cet article.</p>
+  <% end %>
 </div>
 
-<div class="container mt-5">
-  <div class="row">
-    <% @related_articles.each do |related| %>
-      <div class="col-lg-4 col-md-6 col-12 mb-4">
-        <%= link_to article_path(related), class: "card h-100 hover-card mx-3 text-decoration-none text-dark" do %>
-          <% if related.image.attached? %>
-            <%= image_tag related.image, class: "card-img-top custom-rounded-top" %>
-          <% else %>
-            <div class="card-img-top no-image-placeholder custom-rounded-top">
-              <p>Aucune image disponible</p>
-            </div>
-          <% end %>
-          <div class="card-body custom-rounded-bottom">
-            <div class="d-flex justify-content-between mb-3">
-              <div class="card-meta text-muted">
-                <% tags = related.tags.limit(2).map(&:name).join(", ") %>
-                <span><%= tags %> • <%= related.created_at.strftime("%d/%m/%Y") %></span>
-              </div>
-            </div>
-            <h5 class="card-title"><%= related.title %></h5>
-            <p class="card-text text-muted"><%= truncate(related.content, length: 100) %></p>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+<!-- Formulaire d'ajout de commentaire -->
+<div class="container mt-4">
+  <h3>Ajouter un commentaire</h3>
+  <%= form_with model: [@article, Comment.new], local: true do |form| %>
+    <div class="form-group">
+      <%= form.label :content, "Votre commentaire" %>
+      <%= form.text_area :content, rows: 3, class: "form-control" %>
+    </div>
+    <%= form.submit "Ajouter", class: "btn btn-primary mt-2" %>
+  <% end %>
 </div>

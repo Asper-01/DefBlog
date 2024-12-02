@@ -3,7 +3,8 @@ class Article < ApplicationRecord
   belongs_to :author, class_name: 'User', foreign_key: "author_id"
   has_one_attached :image
   has_and_belongs_to_many :tags, join_table: :articletags
-
+  has_many :comments, dependent: :destroy
+  
   # Attribut virtuel pour la suppression d'image
   attr_accessor :remove_image
 

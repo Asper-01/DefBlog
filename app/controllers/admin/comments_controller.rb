@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to article_path(@article), notice: 'Commentaire ajouté avec succès.'
     else
-      redirect_to article_path(@article), alert: 'Erreur lors de l’ajout du commentaire.'
+      redirect_to article_path(@article), alert: 'Erreur : impossible d’ajouter le commentaire.'
     end
   end
 

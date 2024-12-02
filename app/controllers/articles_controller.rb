@@ -4,7 +4,7 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy]
 
   def index
-    @articles = Article.order(created_at: :desc)  # Trie les articles par date de création
+    @articles = Article.order(created_at: :desc)
   end
 
   def new
