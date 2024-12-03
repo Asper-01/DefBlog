@@ -22,14 +22,15 @@
 
 <!-- Section des commentaires -->
 <div class="container mt-5">
+  <div class="card">
   <h3>Commentaires</h3>
 
   <% if @article.comments.any? %>
     <ul class="list-group">
       <% @article.comments.each do |comment| %>
-        <li class="list-group-item">
+        <li class="list-group-item text-dark"> <!-- Ajout de `text-dark` pour le noir -->
           <strong>Posté le :</strong> <%= comment.created_at.strftime('%d/%m/%Y à %H:%M') %><br>
-          <%= comment.content %>
+          <span class="comment-content"><%= comment.content %></span> <!-- Classe ajoutée -->
         </li>
       <% end %>
     </ul>
@@ -40,12 +41,19 @@
 
 <!-- Formulaire d'ajout de commentaire -->
 <div class="container mt-4">
-  <h3>Ajouter un commentaire</h3>
-  <%= form_with model: [@article, Comment.new], local: true do |form| %>
-    <div class="form-group">
-      <%= form.label :content, "Votre commentaire" %>
-      <%= form.text_area :content, rows: 3, class: "form-control" %>
+  <div class="card">
+    <div class="card-body">
+      <h3>Ajouter un commentaire</h3>
+      <%= form_with model: [@article, Comment.new], local: true do |form| %>
+        <div class="mb-3">
+          <%= form.label :content, "Votre commentaire", class: "form-label" %>
+          <%= form.text_area :content, rows: 4, class: "form-control" %>
+        </div>
+        <div class="d-grid gap-2">
+          <%= form.submit "Envoyer", class: "btn btn-primary" %>
+        </div>
+      <% end %>
     </div>
-    <%= form.submit "Ajouter", class: "btn btn-primary mt-2" %>
-  <% end %>
+  </div>
 </div>
+
