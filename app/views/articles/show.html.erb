@@ -28,6 +28,7 @@
   <% if @article.comments.any? %>
     <ul class="list-group">
       <% @article.comments.each do |comment| %>
+      <% @article.comments.order(created_at: :desc) %>
         <li class="list-group-item text-dark"> <!-- Ajout de `text-dark` pour le noir -->
           <strong>Posté le :</strong> <%= comment.created_at.strftime('%d/%m/%Y à %H:%M') %><br>
           <span class="comment-content"><%= comment.content %></span> <!-- Classe ajoutée -->
@@ -38,7 +39,7 @@
     <p class="text-muted">Aucun commentaire pour cet article.</p>
   <% end %>
 </div>
-
+</div>
 <!-- Formulaire d'ajout de commentaire -->
 <div class="container mt-4">
   <div class="card">
@@ -56,4 +57,3 @@
     </div>
   </div>
 </div>
-

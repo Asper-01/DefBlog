@@ -4,9 +4,8 @@ Rails.application.routes.draw do
   # Pages publiques
   root 'articles#index'
   resources :articles, only: [:index, :show,] do
-    resources :comments, only: [:create]
+    resources :comments, only: [:new, :create, :edit, :update, :destroy]
   end
-  resources :comments, only: [:create, :destroy, :update, :edit]
   resources :tags, only: [:index, :show,]
 
 

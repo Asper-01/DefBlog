@@ -20,10 +20,12 @@ class ArticlesController < ApplicationController
     else
       render :new
     end
+
   end
 
   def show
     @article = Article.find(params[:id])
+    @comments = @article.comments.order(created_at: :desc)
     @related_articles = @article.related_articles
   end
 
