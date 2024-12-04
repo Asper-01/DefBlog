@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
 
   # Pages publiques
   root 'articles#index'
   resources :articles, only: [:index, :show,] do
-    resources :comments, only: [:new, :create, :edit, :update, :destroy]
+    resources :comments, only: [:create, :new ]
   end
   resources :tags, only: [:index, :show,]
 

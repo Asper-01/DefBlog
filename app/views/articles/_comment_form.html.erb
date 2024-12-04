@@ -1,0 +1,9 @@
+<%= form_with model: [@article, Comment.new(parent: parent_comment)], local: true do |f| %>
+  <div class="mb-3">
+    <%= f.text_area :content, placeholder: "Écrire votre réponse ici...", rows: 3, class: "form-control" %>
+  </div>
+  <%= f.hidden_field :parent_id, value: parent_comment.id %>
+  <div class="d-grid gap-2">
+    <%= f.submit "Répondre", class: "btn btn-primary btn-sm" %>
+  </div>
+<% end %>

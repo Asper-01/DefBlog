@@ -15,7 +15,10 @@ class CommentsController < ApplicationController
     end
   end
 
-
+    def new
+      @article = Article.find(params[:article_id])
+      @comment = @article.comments.build(parent_id: params[:parent_id])
+    end
 
   private
 

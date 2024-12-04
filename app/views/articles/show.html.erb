@@ -1,59 +1,71 @@
 <div class="container mt-4">
+  <!-- Section Article -->
   <div class="row justify-content-center">
-    <div class="col-12 mb-4">
-      <% if @article.image.attached? %>
-        <%= image_tag @article.image, class: "article-card-img custom-rounded-top" %>
-      <% else %>
-        <p>Aucune image disponible</p>
-      <% end %>
-      <div class="card-body">
-        <div class="d-flex justify-content-between mb-3">
-          <div class="card-meta text-muted">
-            <% tags = @article.tags.limit(2).map(&:name).join(", ") %>
-            <span><%= tags %> • <%= @article.created_at.strftime("%d/%m/%Y") %></span>
-          </div>
+    <div class="col-lg-8 col-md-10">
+      <div class="card">
+        <% if @article.image.attached? %>
+          <%= image_tag @article.image, class: "card-img-top custom-rounded-top" %>
+        <% else %>
+          <p class="text-center text-muted mt-3">Aucune image disponible</p>
+        <% end %>
+        <div class="card-body">
+          <h1 class="card-title mb-3"><%= @article.title %></h1>
+          <p class="card-text text-dark"><%= simple_format(@article.content) %></p>
         </div>
-        <h1 class="card-title mb-3"><%= @article.title %></h1>
-        <p class="card-text text-muted mb-4"><%= @article.content %></p>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Section des commentaires -->
-<div class="container mt-5">
-  <div class="card">
-  <h3>Commentaires</h3>
+  <!-- Section des commentaires -->
+  <div class="row justify-content-center mt-5">
+    <div class="col-lg-8 col-md-10">
+      <div class="card">
+        <div class="card-header">
+          <h3>Commentaires</h3>
+        </div>
+        <div class="card-body">
+          <% if @comments.any? %>
+            <ul class="comments">
+              <% @comments.each do |comment| %>
+                <li class="mb-4">
+                  <strong><%= comment.user.name %> :</strong>
+                  <p><%= comment.content %></p>
+                  <small class="text-muted">Posté le <%= comment.created_at.strftime('%d/%m/%Y à %H:%M') %></small>
 
-  <% if @article.comments.any? %>
-    <ul class="list-group">
-      <% @article.comments.each do |comment| %>
-      <% @article.comments.order(created_at: :desc) %>
-        <li class="list-group-item text-dark"> <!-- Ajout de `text-dark` pour le noir -->
-          <strong>Posté le :</strong> <%= comment.created_at.strftime('%d/%m/%Y à %H:%M') %><br>
-          <span class="comment-content"><%= comment.content %></span> <!-- Classe ajoutée -->
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p class="text-muted">Aucun commentaire pour cet article.</p>
-  <% end %>
-</div>
-</div>
-<!-- Formulaire d'ajout de commentaire -->
-<div class="container mt-4">
-  <div class="card">
-    <div class="card-body">
-      <h3>Ajouter un commentaire</h3>
-      <%= form_with model: [@article, Comment.new], local: true do |form| %>
-        <div class="mb-3">
-          <%= form.label :content, "Votre commentaire", class: "form-label" %>
-          <%= form.text_area :content, rows: 4, class: "form-control" %>
+                  <% if comment.parent.nil? %> <!-- Seuls les commentaires principaux peuvent avoir des réponses -->
+                    <div class="mt-2">
+                      <% if comment.parent.nil? %> <!-- Seuls les commentaires principaux peuvent avoir des réponses -->
+  <div class="mt-2">
+    <%= render partial: 'articles/comment_form', locals: { parent_comment: comment } %>
+  </div>
+<% end %>
+
+                    </div>
+                  <% end %>
+
+                  <!-- Afficher les réponses -->
+                  <% if comment.replies.any? %>
+                    <ul class="replies list-unstyled mt-3 ps-4 border-start">
+                      <% comment.replies.each do |reply| %>
+                        <li class="mb-3">
+                          <strong><%= reply.user.name %> :</strong>
+                          <p><%= reply.content %></p>
+                          <small class="text-muted">Posté le <%= reply.created_at.strftime('%d/%m/%Y à %H:%M') %></small>
+                        </li>
+                      <% end %>
+                    </ul>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="text-muted">Aucun commentaire pour cet article.</p>
+          <% end %>
         </div>
-        <div class="d-grid gap-2">
-          <%= form.submit "Envoyer", class: "btn btn-primary" %>
-        </div>
-      <% end %>
+      </div>
     </div>
   </div>
-</div>
+
+
+
+<%= render 'articles/comments' %>
