@@ -1,28 +1,28 @@
-<div class="navbar custom-navbar">
-    <!-- Logo centré -->
-    <div class="navbar-logo-container">
-      <%= link_to articles_path, class: "navbar-brand d-block mx-auto" do %>
-        <%= image_tag("logoNom.png", class: "navbar-logo") %>
-      <% end %>
-    </div>
+<div class="navbar custom-navbar d-flex justify-content-between align-items-center">
+  <!-- Logo -->
+  <div class="navbar-logo">
+    <%= link_to articles_path, class: "navbar-brand d-block" do %>
+      <%= image_tag("logoNom.png", class: "navbar-logo") %>
+    <% end %>
+  </div>
 
-    <!-- Boutons/liens centrés en dessous -->
+  <!-- Menu de navigation -->
     <div class="navbar-buttons text-center">
       <ul class="navbar-nav d-flex justify-content-center">
-        <% if user_signed_in? %>
-          <div class="dropdown">
-  <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <i class="bi bi-person-circle"></i> <%= current_user.name %> connecté
-  </a>
-  <ul class="dropdown-menu" aria-labelledby="userDropdown">
-    <li><%= link_to "Mon profil", edit_user_registration_path, class: "dropdown-item" %></li>
-  </ul>
-</div>
-          <% if current_user.admin? %>
-            <li class="nav-item"><%= link_to 'Dashboard', admin_dashboard_path, class: 'nav-link' %></li>
-          <% end %>
+      <% if user_signed_in? %>
+        <!-- Lien Mon profil -->
+        <li class="nav-item">
+           <%= link_to "Profil #{current_user.name}", edit_user_registration_path, class: 'nav-link' %>
+        </li>
 
-          <!-- Lien de déconnexion -->
+        <!-- Lien vers le dashboard si admin -->
+        <% if current_user.admin? %>
+          <li class="nav-item">
+            <%= link_to 'Dashboard', admin_dashboard_path, class: 'nav-link' %>
+          </li>
+        <% end %>
+
+         <!-- Lien de déconnexion -->
           <%= form_with url: destroy_user_session_path, method: :delete, data: { turbo: false }, class: "nav-item" do %>
             <%= submit_tag "Déconnexion", class: "nav-link" %>
           <% end %>
