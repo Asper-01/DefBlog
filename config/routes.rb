@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :articles, only: [:index, :show,] do
     resources :comments, only: [:create, :new ]
   end
-  resources :tags, only: [:index, :show,]
+  resources :tags, only: [:index, :show, :create]
 
 
   # Vérification de santé

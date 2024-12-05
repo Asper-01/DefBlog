@@ -1,12 +1,10 @@
 <div class="container mt-4">
   <div class="row justify-content-center">
     <div class="col-6 mb-4">
-      <!-- Carte pour créer un tag -->
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Créer un nouveau tag</h5>
 
-          <!-- Affichage des erreurs de validation du tag -->
           <% if @tag.errors.any? %>
             <div id="error_explanation" class="alert alert-danger">
               <h2><%= pluralize(@tag.errors.count, "erreur") %> ont empêché ce tag d'être sauvegardé :</h2>
@@ -18,26 +16,24 @@
             </div>
           <% end %>
 
-          <!-- Formulaire de création de tag -->
-          <%= link_to "Retour au dashboard", "/admin/dashboard", class: "btn btn-outline-secondary w-100 mb-3 mt-3 rounded-custom" %>
+          <%= link_to "Retour au dashboard", "/admin/dashboard", class: "btn btn-outline-secondary w-100 my-3 rounded-custom" %>
 
-          <%= form_with(model: @tag, local: true) do |form| %>
-            <div class="form-group">
-              <%= form.label :name, "Nom du Tag", class: "form-label" %>
-              <%= form.text_field :name, class: "form-control", placeholder: "Nom du tag" %>
-            </div>
+<%= form_with(model: @tag, url: admin_tags_path, local: true) do |form| %>
+  <div class="form-group">
+    <%= form.label :name, "Nom du Tag", class: "form-label" %>
+    <%= form.text_field :name, class: "form-control", placeholder: "Nom du tag" %>
+  </div>
 
-            <!-- Sélectionner une catégorie pour ce tag -->
-            <div class="form-group">
-              <%= form.label :category_id, "Catégorie", class: "form-label" %>
-              <%= form.collection_select :category_id, Category.all, :id, :name, { prompt: "Choisir une catégorie" }, class: "form-control" %>
-            </div>
+  <div class="form-group">
+    <%= form.label :category_id, "Catégorie", class: "form-label" %>
+    <%= form.collection_select :category_id, Category.all, :id, :name, { prompt: "Choisir une catégorie" }, class: "form-control" %>
+  </div>
 
-            <!-- Boutons d'action -->
-            <div class="d-flex justify-content-between mt-3">
-              <%= form.submit "Créer le Tag", class: "btn btn-primary w-100 mb-3 mt-3 rounded-custom" %>
-            </div>
-          <% end %>
+  <div class="d-flex justify-content-between mt-3">
+    <%= form.submit "Créer le Tag", class: "btn btn-primary w-100 mb-3 mt-3 rounded-custom" %>
+  </div>
+<% end %>
+
         </div>
       </div>
     </div>
