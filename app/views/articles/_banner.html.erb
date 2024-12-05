@@ -23,7 +23,7 @@
         <div class="banner-tags">
           <% @articles.first.tags.limit(2).each do |tag| %>
             <%= link_to tag.name, tag_path(tag), class: 'tag-link' %>
-            <%= ", " unless tag == @articles.first.tags.limit(2).last %>
+            <%= " " unless tag == @articles.first.tags.limit(2).last %>
           <% end %>
         </div>
 

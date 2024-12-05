@@ -36,20 +36,3 @@
   height: 100%; /* Hauteur égale à la carte */
   object-fit: cover; /* Couvre l'espace sans déformer l'image */
 }
-
-/* Logo superposé sur l'image */
-.logo-animation {
-  width: 100px; /* Taille fixe du logo */
-  bottom: 10px; /* Décalage depuis le bas */
-  left: 10px; /* Décalage depuis la gauche */
-  opacity: 0; /* Invisible par défaut */
-  transition: opacity 0.3s ease, transform 0.3s ease; /* Transition douce pour l’apparition */
-  position: absolute;
-}
-/* Affichage du logo uniquement au survol de l'image */
-.image-container:hover .logo-animation {
-  opacity: 1; /* Le logo devient visible */
-  transform: translateY(0); /* Restauration de la position */
-}
-
-
