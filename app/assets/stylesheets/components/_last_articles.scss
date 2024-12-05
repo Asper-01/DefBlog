@@ -1,7 +1,34 @@
-.last-articles-separator {
-  margin: 20px 0;
-  text-align: center;
+.last-articles-container {
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
+
+.last-articles-separator {
+  margin: 40px 0;
+  margin-bottom: 40px;
+  text-align: center;
+  background-color: #ccc; /* Fond gris pour le séparateur */
+  height: 2px; /* Hauteur du séparateur */
+  width: 100%; /* Prend toute la largeur de la section */
+  position: relative; /* Pour pouvoir positionner le texte par-dessus le séparateur */
+}
+
+.last-articles-title {
+  font-size: 1.5rem;
+  font-weight: bold; /* Texte en gras */
+  color: #333; /* Texte en noir */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: absolute; /* Position absolue pour placer le texte sur le séparateur */
+  top: 50%; /* Centrer verticalement */
+  left: 50%; /* Centrer horizontalement */
+  transform: translate(-50%, -50%); /* Centrage exact */
+  padding: 0 10px; /* Un peu d'espace à gauche et à droite du texte */
+  background-color: #F8F8F8; /* Fond blanc derrière le texte */
+}
+
+
+
 
 .last-article-card {
   margin-bottom: 20px;

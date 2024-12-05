@@ -1,7 +1,8 @@
 <div class="last-articles-container">
-  <div class="last-articles-separator">
-    <span class="last-articles-title">Derniers articles</span>
-  </div>
+<div class="last-articles-separator">
+  <span class="last-articles-title">Derniers articles</span>
+</div>
+
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
     <% @articles.drop(1).each do |article| %>
       <div class="col-lg-4 col-md-6 col-12 last-article-card">
