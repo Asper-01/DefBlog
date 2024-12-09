@@ -55,6 +55,8 @@ gem 'kaminari'
 # gestion miniatures img:
 gem 'mini_magick'
 gem 'image_processing', '~> 1.2'
+gem 'omniauth-google-oauth2'
+
 
 
 
