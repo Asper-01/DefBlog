@@ -31,13 +31,14 @@
               <%= f.button :submit, "Se connecter", class: "btn btn-primary w-100" %>
             </div>
           <% end %>
-
           <!-- Liens supplémentaires -->
           <div class="mt-3 text-center">
-            <%= render "devise/shared/links" %>
+
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+ <%= render "devise/shared/links" %>
+<%= link_to "Se connecter avec Google", user_google_oauth2_omniauth_authorize_path, method: :post %>

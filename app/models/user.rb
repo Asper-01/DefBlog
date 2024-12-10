@@ -6,8 +6,24 @@ class User < ApplicationRecord
   def admin?
     admin
   end
+
+  def self.from_omniauth(auth)
+    user = User.where(provider: auth.provider, uid: auth.uid).first
+
+    # Si l'utilisateur existe déjà, on le met à jour, sinon on le crée
+    unless user
+      user = User.create(
+        name: auth.info.name,
+        email: auth.info.email,
+        provider: auth.provider,
+        uid: auth.uid,
+        password: Devise.friendly_token[0, 20]  # Génère un mot de passe aléatoire
+      )
+    end
+    user
+  end
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,:omniauthable, omniauth_providers: [:google_oauth2, :facebook]
 end
