@@ -2,13 +2,20 @@
   <% if @articles.any? %>
     <div class="banner-row">
       <!-- Div de l'image -->
-      <div class="banner-image-container">
+      <div class="banner-image-container" style="position: relative;">
         <% if @articles.first.image.attached? %>
           <%= link_to article_path(@articles.first) do %>
             <%= image_tag @articles.first.image, class: 'banner-image' %>
           <% end %>
         <% else %>
           <p class="banner-no-image">Aucune image disponible</p>
+        <% end %>
+
+        <!-- Badge compteur cliquable -->
+        <%= link_to article_path(@articles.first, anchor: 'comments') do %>
+          <div class="comment-count-badge">
+            <%= @articles.first.comments.size %>
+          </div>
         <% end %>
       </div>
 
@@ -35,3 +42,32 @@
     </div>
   <% end %>
 </div>
+
+
+<style>
+
+.banner-image-container {
+  position: relative;
+
+  .comment-count-badge {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #ff6b6b;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 50%;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+      background-color: #ff4b4b;
+    }
+  }
+}
+
+</style>
