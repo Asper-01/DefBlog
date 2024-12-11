@@ -13,10 +13,23 @@
                           autofocus: true,
                           input_html: { autocomplete: "email", class: "form-control" },
                           label_html: { class: "form-label" } %>
-              <%= f.input :password,
-                          required: false,
-                          input_html: { autocomplete: "current-password", class: "form-control" },
-                          label_html: { class: "form-label" } %>
+
+<div class="input-group">
+  <%= f.password_field :password,
+    class: "form-control",
+    id: "password-field",
+    autocomplete: "current-password",
+    data: { controller: "toggle-password", toggle_password_target: "password" } %>
+  <button type="button"
+    class="btn btn-outline-secondary"
+    data-action="toggle-password#toggle"
+    data-toggle-password-target="buttonText">
+    Afficher
+  </button>
+</div>
+
+
+
               <% if devise_mapping.rememberable? %>
                 <div class="form-check mb-3">
                   <%= f.input :remember_me,
@@ -32,13 +45,14 @@
             </div>
           <% end %>
           <!-- Liens supplémentaires -->
-<div class="form-actions mt-3">
-           <%= render "devise/shared/links" %>
-      
-
+          <div class="form-actions mt-3">
+            <%= render "devise/shared/links" %>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+
