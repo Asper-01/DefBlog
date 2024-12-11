@@ -1,4 +1,4 @@
-import "@rails/ujs";
+import { start } from "@rails/ujs";
 import "@hotwired/turbo-rails";
 import "controllers";
 
