@@ -12,9 +12,13 @@ Rails.application.routes.draw do
   end
   resources :tags, only: [:index, :show, :create]
 
-
   # Vérification de santé
   get "up" => "rails/health#show", as: :rails_health_check
+
+  # Vérifications d'inscriptions:
+  namespace :users do
+    get 'check_uniqueness', to: 'checks#uniqueness'
+  end
 
   # Administration
   namespace :admin do
