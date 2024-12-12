@@ -1,7 +1,11 @@
 // Specific CSS for your home-page
 
-
-/* Carte de la bannière */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Cette propriété permet d'inclure la bordure et le padding dans la largeur et hauteur des éléments */
+}
+/* Carte  */
 .card {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
   border: none;
@@ -42,4 +46,3 @@
   height: auto; /* Maintient les proportions sans étirer l'image */
   height: 550px;
 }
-
