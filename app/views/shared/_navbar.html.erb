@@ -11,16 +11,16 @@
     <ul class="navbar-nav d-flex justify-content-center">
 
       <!-- Dropdown "Rubriques" -->
- <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Dropdown button
-    </button>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Action</a></li>
-        <li><a class="dropdown-item" href="#">Another action</a></li>
-        <li><a class="dropdown-item" href="#">Something else here</a></li>
-    </ul>
-</div>
+      <li class="nav-item dropdown rubriques-dropdown">
+        <a class="nav-link" href="#" id="rubriquesDropdown" data-bs-toggle="dropdown" aria-expanded="true">
+          Rubriques
+        </a>
+        <ul class="dropdown-menu " aria-labelledby="rubriquesDropdown">
+          <% Tag.where(id: [59, 60, 61, 62, 43]).each do |tag| %>
+            <li><%= link_to tag.name, tag_path(tag), class: "dropdown-item" %></li>
+          <% end %>
+        </ul>
+      </li>
 
       <!-- Autres éléments du menu -->
       <% if user_signed_in? %>
