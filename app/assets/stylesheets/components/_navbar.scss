@@ -1,6 +1,7 @@
 /* Navbar principale */
 .custom-navbar {
-  background: light-gray;
+  background-color: #F9F9F9  !important;
+  opacity: 1;
   padding: 20px 0; /* Espacement global pour une apparence propre */
   display: flex;
   flex-direction: column; /* Organisation verticale */
@@ -40,4 +41,21 @@
   text-align: center;
 }
 
+.navbar{
+  background-color: #F9F9F9  !important;
+  opacity: 1;
+}
 
+/* MODIFICATION ENCOURS */
+
+/* Style par défaut du menu */
+.dropdown-menu {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.2s, opacity 0.2s ease-in-out;
+}
+
+.dropdown-menu.show {
+  visibility: visible;
+  opacity: 1;
+}

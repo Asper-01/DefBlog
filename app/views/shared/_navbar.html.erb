@@ -1,44 +1,46 @@
-<div class="navbar custom-navbar d-flex justify-content-between align-items-center">
+<div class="navbar custom-navbar sticky-top bg-light d-flex justify-content-between align-items-center">
   <!-- Logo -->
   <div class="navbar-logo">
-    <%= link_to articles_path, class: "navbar-brand d-block" do %>
+    <%= link_to articles_path, class: "navbar-brand " do %>
       <%= image_tag("logoNom.png", class: "navbar-logo") %>
     <% end %>
   </div>
 
   <!-- Menu de navigation -->
-    <div class="navbar-buttons text-center">
-      <ul class="navbar-nav d-flex justify-content-center">
-      <% if user_signed_in? %>
-        <!-- Lien Mon profil -->
-        <li class="nav-item">
-           <%= link_to "Profil #{current_user.name}", edit_user_registration_path, class: 'nav-link' %>
-        </li>
+  <div class="navbar text-center">
+    <ul class="navbar-nav d-flex justify-content-center">
 
-        <!-- Lien vers le dashboard si admin -->
+      <!-- Dropdown "Rubriques" -->
+ <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Dropdown button
+    </button>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Action</a></li>
+        <li><a class="dropdown-item" href="#">Another action</a></li>
+        <li><a class="dropdown-item" href="#">Something else here</a></li>
+    </ul>
+</div>
+
+      <!-- Autres éléments du menu -->
+      <% if user_signed_in? %>
+        <li class="nav-item">
+          <%= link_to "Profil #{current_user.name}", edit_user_registration_path, class: 'nav-link' %>
+        </li>
         <% if current_user.admin? %>
           <li class="nav-item">
             <%= link_to 'Dashboard', admin_dashboard_path, class: 'nav-link' %>
           </li>
         <% end %>
-
-         <!-- Lien de déconnexion -->
-          <%= form_with url: destroy_user_session_path, method: :delete, data: { turbo: false }, class: "nav-item" do %>
-            <%= submit_tag "Déconnexion", class: "nav-link" %>
-          <% end %>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to 'Se connecter', new_user_session_path, class: 'nav-link' %>
-          </li>
-          <li class="nav-item dropdown">
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%= link_to "Action", "#", class: "dropdown-item" %>
-              <%= link_to "Another action", "#", class: "dropdown-item" %>
-              <%= link_to "Se connecter", new_user_session_path, class: "dropdown-item" %>
-            </div>
-          </li>
+        <%= form_with url: destroy_user_session_path, method: :delete, data: { turbo: false }, class: "nav-item" do %>
+          <%= submit_tag "Déconnexion", class: "nav-link" %>
         <% end %>
-      </ul>
-    </div>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to 'Se connecter', new_user_session_path, class: 'nav-link' %>
+        </li>
+      <% end %>
 
+    </ul>
+  </div>
 </div>
