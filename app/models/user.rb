@@ -3,14 +3,6 @@ class User < ApplicationRecord
   has_one_attached :avatar
   has_many :comments, dependent: :destroy
 
-  # EMAIL Validation:
-  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: { case_sensitive: false, message: "" }
-
-  # PASSWORD Validation & Regex:
-  validates :password, presence: true, length: { minimum: 8 }, format: { with: /\A(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}\z/, message: "doit inclure au moins une lettre, un chiffre et un caractère spécial" }
-
-  # NAME Validation:
-  validates :name, presence: true, uniqueness: { case_sensitive: false, message: "nom déjà pris, veuillez en choisir un autre." }
 
   def admin?
     admin
@@ -18,7 +10,7 @@ class User < ApplicationRecord
 
   def self.from_omniauth(auth)
     user = User.where(provider: auth.provider, uid: auth.uid).first
-
+    logger.debug "Utilisateur trouvé : #{@user.inspect}" # Log de l'utilisateur
     # Si l'utilisateur existe déjà, on le met à jour, sinon on le crée
     unless user
       user = User.create(
