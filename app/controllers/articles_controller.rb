@@ -25,7 +25,8 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
-    @comments = @article.comments.order(created_at: :desc)
+    @comment = Comment.new # Création d'un nouvel objet Comment pour le formulaire
+    @comments = @article.comments.where(parent_id: nil) # Récupérer uniquement les commentaires principaux
     @related_articles = @article.related_articles
   end
 

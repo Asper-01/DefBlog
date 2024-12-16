@@ -10,8 +10,10 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to article_path(@article), notice: 'Commentaire ajouté avec succès.'
     else
-      @comments = @article.comments.order(created_at: :desc) # Nécessaire pour afficher les commentaires existants
-      render 'articles/show' # Rester sur la page actuelle avec les erreurs
+      respond_to do |format|
+        format.html { redirect_to @article, alert: "Une erreur est survenue lors de l'ajout du commentaire." }
+        format.turbo_stream
+      end
     end
   end
 
@@ -28,6 +30,6 @@ class CommentsController < ApplicationController
 
   def comment_params
     Rails.logger.debug "Params reçus : #{params.inspect}"
-    params.require(:comment).permit(:content, :article_id, :user_id, :created_at, :updated_at, :user, :article, :id)
+    params.require(:comment).permit(:content, :article_id, :parent_id, :user_id, :created_at, :updated_at, :user, :article, :id)
   end
 end

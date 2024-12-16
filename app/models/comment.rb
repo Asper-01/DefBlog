@@ -2,10 +2,9 @@ class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :article
   belongs_to :parent, class_name: 'Comment', optional: true
-  has_many :replies, -> { where(parent_id: nil) }, class_name: 'Comment', foreign_key: :parent_id, dependent: :destroy
+  has_many :replies, class_name: 'Comment', foreign_key: 'parent_id'
 
-  validates :content, presence: true, length: { minimum: 5 }
-  validate :parent_must_not_have_parent
+  validates :content, presence: true
 
   private
 

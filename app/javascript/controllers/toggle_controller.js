@@ -1,19 +1,14 @@
-import { Controller } from "@hotwired/stimulus";
+// app/javascript/controllers/toggle_reply_controller.js
+import { Controller } from "stimulus";
 
 export default class extends Controller {
   static targets = ["form"];
 
-  connect() {
-    this.hide(); // Cache le formulaire au chargement
-  }
-
-  new(event) {
+  toggleForm(event) {
     event.preventDefault();
-    this.formTarget.style.display = "block";
-  }
+    const commentId = event.currentTarget.dataset.commentId;
+    const replyForm = document.getElementById(`reply-form-${commentId}`);
 
-  hide(event) {
-    if (event) event.preventDefault();
-    this.formTarget.style.display = "none";
+    replyForm.classList.toggle("d-none");
   }
 }

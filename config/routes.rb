@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   # Pages publiques
   root 'articles#index'
   resources :articles, only: [:index, :show,] do
-    resources :comments, only: [:create, :new ]
+    resources :comments, only: [:create]
   end
   resources :tags, only: [:index, :show, :create]
 
