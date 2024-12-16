@@ -1,18 +1,15 @@
 class TagsController < ApplicationController
-  before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: [:show]
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
 
   def index
     @tags = Tag.all
   end
 
-
   def show
     @tag = Tag.find(params[:id])
     @articles = @tag.articles.order(created_at: :desc)
   end
-
-
 
   def new
     @tag = Tag.new

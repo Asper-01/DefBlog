@@ -1,8 +1,8 @@
-<div class="banner-container">
+<div class="banner-container ">
   <% if @articles.any? %>
-    <div class="banner-row">
+    <div class="banner-row ">
       <!-- Div de l'image -->
-      <div class="banner-image-container" style="position: relative;">
+      <div class="banner-image-container " style="position: relative;">
         <% if @articles.first.image.attached? %>
           <%= link_to article_path(@articles.first) do %>
             <%= image_tag @articles.first.image, class: 'banner-image' %>
@@ -45,6 +45,11 @@
 
 
 <style>
+
+.banner-container {
+  margin-top: 90px; /* application de la marge */
+}
+
 
 .banner-image-container {
   position: relative;
