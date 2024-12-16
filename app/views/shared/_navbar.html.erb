@@ -1,46 +1,155 @@
-<div class="navbar custom-navbar sticky-top bg-light d-flex justify-content-between align-items-center">
-  <!-- Logo -->
-  <div class="navbar-logo">
-    <%= link_to articles_path, class: "navbar-brand " do %>
-      <%= image_tag("logoNom.png", class: "navbar-logo") %>
+<div class="container sticky-top bg-light">
+<!-- Logo qui reste en haut et n'est pas affecté par le scroll -->
+<div class="logo-container mt-3">
+  <%= link_to articles_path do %>
+    <%= image_tag("logoNom.png", class: "navbar-logo") %>
+  <% end %>
+</div>
+
+<!-- La Navbar fixée en haut -->
+<div class="navbar text-center">
+
+    <div class="navbar-nav d-flex justify-content-between flex-row">
+      <div class="dropdown">
+  <button class="btn btn-transparent dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Rubriques
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <% Tag.where(id: [59, 60, 61, 62, 43]).each do |tag| %>
+      <a class="dropdown-item" href="<%= tag_path(tag) %>">
+        <%= tag.name %>
+      </a>
     <% end %>
   </div>
+</div>
 
-  <!-- Menu de navigation -->
-  <div class="navbar text-center">
-    <ul class="navbar-nav d-flex justify-content-center">
-
-      <!-- Dropdown "Rubriques" -->
-      <li class="nav-item dropdown rubriques-dropdown">
-        <a class="nav-link" href="#" id="rubriquesDropdown" data-bs-toggle="dropdown" aria-expanded="true">
-          Rubriques
-        </a>
-        <ul class="dropdown-menu " aria-labelledby="rubriquesDropdown">
-          <% Tag.where(id: [59, 60, 61, 62, 43]).each do |tag| %>
-            <li><%= link_to tag.name, tag_path(tag), class: "dropdown-item" %></li>
-          <% end %>
-        </ul>
-      </li>
-
-      <!-- Autres éléments du menu -->
       <% if user_signed_in? %>
-        <li class="nav-item">
+        <div class="nav-item ">
           <%= link_to "Profil #{current_user.name}", edit_user_registration_path, class: 'nav-link' %>
-        </li>
+        </div>
+
         <% if current_user.admin? %>
-          <li class="nav-item">
+          <div class="nav-item">
             <%= link_to 'Dashboard', admin_dashboard_path, class: 'nav-link' %>
-          </li>
+          </div>
         <% end %>
         <%= form_with url: destroy_user_session_path, method: :delete, data: { turbo: false }, class: "nav-item" do %>
           <%= submit_tag "Déconnexion", class: "nav-link" %>
         <% end %>
       <% else %>
-        <li class="nav-item">
+        <div class="nav-item">
           <%= link_to 'Se connecter', new_user_session_path, class: 'nav-link' %>
-        </li>
+        </div>
       <% end %>
-
-    </ul>
+    </div>
   </div>
 </div>
+
+
+<style>
+
+
+/* Le logo est sticky mais ne se déplace pas avec la page */
+.logo-container {
+  position: sticky;
+  top: 0; /* Colle le logo en haut */
+  z-index: 999; /* Le logo reste au-dessus de tout */
+}
+
+/* Le logo lui-même */
+.navbar-logo {
+  max-width: 200px; /* Ajuste la taille du logo */
+  height: auto;
+}
+
+/* La navbar est sticky, mais commence juste après le logo */
+.custom-navbar {
+  position: sticky;
+  top: 60px; /* Décalage en dessous du logo (ajuste cette valeur en fonction de la hauteur de ton logo) */
+  padding: 10px 0; /* Un peu de padding pour la navbar */
+}
+
+/* Personnalisation de la navbar */
+.navbar-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-nav .nav-item {
+  margin-right: 20px;
+}
+
+.nav-link {
+  text-decoration: none;
+
+}
+
+.navbar-nav .dropdown-menu {
+  min-width: 200px; /* Ajuste la largeur du menu dropdown */
+}
+
+.navbar-nav .dropdown-item:hover {
+
+}
+
+/* Connexion/Déconnexion */
+.navbar-nav .nav-item .btn-link {
+  color: #007bff;
+}
+.nav-item{
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.navbar-nav .dropdown-menu {
+  position: absolute; /* Permet de sortir le dropdown du flux normal */
+  top: 100%; /* Place le menu juste en dessous du bouton */
+  left: 0; /* Alignement à gauche */
+  z-index: 1000; /* Gère la superposition */
+}
+.dropdown-menu {
+  background-color: rgba(255, 255, 255, 0.8); /* Fond semi-transparent */
+  backdrop-filter: blur(5px); /* Effet de flou sur les éléments en arrière-plan */
+  border: none; /* Pas de bordure */
+  border-radius: 10px; /* Coins arrondis */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optionnel : une ombre légère */
+  padding: 10px; /* Ajoute un peu d'espace intérieur */
+}
+
+.dropdown-item {
+  color: #333; /* Couleur du texte */
+  border-radius: 5px; /* Coins légèrement arrondis pour chaque item */
+  padding: 8px 12px; /* Ajuste l'espacement intérieur */
+}
+
+.dropdown-item:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Fond semi-transparent au survol */
+  color: #007bff; /* Couleur du texte au survol */
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block; /* Affiche le menu quand on survole le dropdown */
+}
+.dropdown-menu {
+  display: none; /* Par défaut, le menu est masqué */
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(-10px); /* Position initiale légèrement décalée vers le haut */
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block; /* Affiche le menu au survol */
+  opacity: 1;
+  transform: translateY(0); /* Animation fluide */
+}
+.dropdown-toggle {
+  border: none; /* Supprime la bordure */
+  background-color: transparent; /* Supprime le fond */
+  box-shadow: none; /* Supprime les ombres potentielles */
+}
+
+
+
+
+</style>

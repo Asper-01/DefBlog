@@ -1,61 +1,65 @@
-/* Navbar principale */
-.custom-navbar {
-  background-color: #F9F9F9  !important;
-  opacity: 1;
-  padding: 20px 0; /* Espacement global pour une apparence propre */
-  display: flex;
-  flex-direction: column; /* Organisation verticale */
-  align-items: center; /* Centre tous les enfants horizontalement */
+.container {
+  background: #f1f1f1;
+  color: #f8f9fa;
 }
 
-/* Logo centré */
-.navbar-logo-container {
-  margin-bottom: 20px; /* Espace entre le logo et les boutons */
-}
-
-.navbar-logo {
-  max-height: 100px; /* Ajuste la taille du logo */
-  height: auto;
-  display: block;
-  margin: 0 auto; /* Centre horizontalement */
-}
-
-/* Boutons/liens centrés */
-.navbar-buttons {
-  margin-top: 10px; /* Espace au-dessus des boutons */
-}
-
-.navbar-buttons ul {
-  list-style: none; /* Supprime les puces */
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: row; /* Aligne les boutons horizontalement */
-  justify-content: center; /* Centre les boutons horizontalement */
-  gap: 20px; /* Espace uniforme entre les boutons */
-}
-
-.navbar-buttons .nav-link {
-  font-size: 16px; /* Taille de la police des liens */
-  padding: 5px 15px; /* Espacement intérieur pour un clic confortable */
+/* Le logo est sticky mais ne se déplace pas avec la page */
+.logo-container {
+  position: sticky;
+  top: 0; /* Colle le logo en haut */
+  background-color: #fff; /* Pour un fond blanc derrière le logo */
+  z-index: 999; /* Le logo reste au-dessus de tout */
+  padding: 20px 0; /* Un peu de padding pour donner de l'espace autour du logo */
   text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Légère ombre pour séparer du contenu */
 }
 
-.navbar{
-  background-color: #F9F9F9  !important;
-  opacity: 1;
+/* Le logo lui-même */
+.navbar-logo {
+  max-width: 200px; /* Ajuste la taille du logo */
+  height: auto;
 }
 
-/* MODIFICATION ENCOURS */
-
-/* Style par défaut du menu */
-.dropdown-menu {
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0.2s, opacity 0.2s ease-in-out;
+/* La navbar est sticky, mais commence juste après le logo */
+.custom-navbar {
+  position: sticky;
+  top: 60px; /* Décalage en dessous du logo (ajuste cette valeur en fonction de la hauteur de ton logo) */
+  background-color: #f8f9fa; /* Fond de la navbar */
+  z-index: 998; /* Moins élevé que celui du logo */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère pour la navbar */
+  padding: 10px 0; /* Un peu de padding pour la navbar */
 }
 
-.dropdown-menu.show {
-  visibility: visible;
-  opacity: 1;
+/* Personnalisation de la navbar */
+.navbar-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-nav .nav-item {
+  margin-right: 20px;
+}
+
+.nav-link {
+  color: #333;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.navbar-nav .dropdown-menu {
+  min-width: 200px; /* Ajuste la largeur du menu dropdown */
+}
+
+.navbar-nav .dropdown-item:hover {
+  background-color: #f1f1f1;
+}
+
+/* Connexion/Déconnexion */
+.navbar-nav .nav-item .btn-link {
+  color: #007bff;
+}
+.nav-item{
+  margin-left: 15px;
+  margin-right: 15px;
 }
