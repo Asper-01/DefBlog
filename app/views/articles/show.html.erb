@@ -41,9 +41,9 @@
           <% if @comments.any? %>
             <% @comments.each do |comment| %>
               <div class="comment-item mb-4 p-3">
-                <div class="d-flex justify-content-between align-items-center">
-                  <strong><%= comment.user.name %></strong>
-                  <small class="text-muted">Posté le <%= comment.created_at.strftime('%d/%m/%Y') %> il y a <%= time_ago_in_words(comment.created_at) %></small>
+                <div class="justify-content-between">
+                  <strong><%= comment.user.name %> :</strong>
+                  <small class="text-muted">Posté le <%= comment.created_at.strftime('%d/%m/%Y') %> il y a <%= time_ago_in_words(comment.created_at, locale: :fr) %></small>
                 </div>
                 <p class="mt-2"><%= comment.content %></p>
 
@@ -79,7 +79,7 @@
                       <div class="reply-item">
                         <div class="d-flex justify-content-between align-items-center">
                           <strong><%= reply.user.name %></strong>
-                          <small class="text-muted">Posté le <%= reply.created_at.strftime('%d/%m/%Y') %> il y a <%= time_ago_in_words(reply.created_at) %></small>
+                          <small class="text-muted">Posté le <%= reply.created_at.strftime('%d/%m/%Y') %> il y a <%= time_ago_in_words(reply.created_at, locale: :fr) %></small>
                         </div>
                         <p class="mt-2"><%= reply.content %></p>
                       </div>
@@ -138,7 +138,7 @@
   transition: all 0.3s ease;
 }
 
-.btn2-transparent:hover {
+.reply-btn:hover {
   color: #084298; /* Bleu foncé */
 }
 
