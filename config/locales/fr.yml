@@ -31,3 +31,11 @@ fr:
       about_x_hours:
         one: "environ une heure"
         other: "environ %{count} heures"
+  comments:
+      count:
+        one: "réponse"
+        other: "réponses"
+  replies:
+      count:
+        one: "réponse"
+        other: "réponses"

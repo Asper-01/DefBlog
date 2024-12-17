@@ -1,6 +1,6 @@
 <%= form_with model: [ @article, Comment.new(parent: parent_comment) ], local: true do |f| %>
-  <div class="mb-3">
-    <%= f.label :content, "Votre commentaire" %>
+  <div class="com-form mb-3">
+    <%= f.label :content, "Rédigez votre commentaire" %>
     <%= f.text_area :content, rows: 3, class: "form-control", required: true %>
   </div>
 
@@ -9,3 +9,34 @@
   </div>
 <% end %>
 
+<script>
+  // Lorsque le DOM est prêt
+  document.addEventListener("DOMContentLoaded", function() {
+    // Sélectionner tous les boutons "Répondre"
+    document.querySelectorAll('[data-action="click->toggle-reply#toggleForm"]').forEach(function(button) {
+      button.addEventListener('click', function() {
+        // Récupérer l'ID du commentaire associé au bouton
+        const commentId = this.getAttribute('data-comment-id');
+
+        // Trouver le formulaire de réponse associé au commentaire
+        const replyForm = document.getElementById('reply-form-' + commentId);
+
+        // Si le formulaire est masqué (avec la classe "d-none"), on l'affiche
+        if (replyForm.classList.contains('d-none')) {
+          replyForm.classList.remove('d-none');
+        } else {
+          // Sinon, on le cache
+          replyForm.classList.add('d-none');
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+
+  .com-form {
+  border-radius: 16px;
+}
+
+</style>

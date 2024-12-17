@@ -28,4 +28,11 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  comments:
+    count:
+      one: "réponse"
+      other: "réponses"
+    replies:
+      count:
+        one: "réponse"
+        other: "réponses"
